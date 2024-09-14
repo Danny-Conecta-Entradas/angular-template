@@ -34,7 +34,7 @@ npm run dev
 ```sh
 npx ng generate component components/component-name
 
-# Pages are also component so you can create them with the same command like this
+# Pages are also components so you can create them with the same command like this
 npx ng generate component pages/page-name
 ```
 
