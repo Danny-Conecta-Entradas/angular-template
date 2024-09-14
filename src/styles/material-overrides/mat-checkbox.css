@@ -1,0 +1,25 @@
+:where([data-apply-material-overrides]) {
+
+  & mat-checkbox {
+
+    & > .mdc-form-field {
+
+      & > .mdc-checkbox {
+        cursor: default;
+      }
+    }
+  }
+}
+
+:where([data-apply-material-overrides]) {
+
+  & mat-radio-button {
+    
+    & > .mdc-form-field {
+
+      & > .mdc-radio {
+        cursor: default;
+      }
+    }
+  }
+}

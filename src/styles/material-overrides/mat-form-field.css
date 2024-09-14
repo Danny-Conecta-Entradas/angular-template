@@ -103,6 +103,7 @@
   & mat-select {
 
     & > .mat-mdc-select-trigger {
+      cursor: default;
 
       & > .mat-mdc-select-arrow-wrapper {
         display: none;

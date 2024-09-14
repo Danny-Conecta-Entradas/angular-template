@@ -128,14 +128,8 @@ export class AppComponent implements AfterViewInit {
       // MatFormField
       // `.mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay`,
       // `.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay`,
-      // `.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper`,
-      (rule) => {
-        if (rule.selectorText !== '.mdc-checkbox') {
-          return
-        }
+      `.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper`,
 
-        rule.styleMap.delete('cursor')
-      },
       // `.mat-mdc-checkbox-ripple .mat-ripple-element`,
     ]
 
