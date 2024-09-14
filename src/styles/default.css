@@ -1,0 +1,191 @@
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/@layer */
+
+@layer all-unset, default;
+
+@layer all-unset {
+
+  a, button {
+    all: unset;
+
+    /* Fix for the `all: unset` declaration preventing the attribute `draggable="false" to work` */
+    &[draggable="true"] {
+      -webkit-user-drag: auto;
+      user-drag: auto;
+    }
+
+    &[draggable="false"] {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
+  }
+
+  a {
+    /*
+      Allow <a> to be styled as a block element to be able to use the outline for accessibility
+      while maintaining its inline behavior
+    */
+    display: inline-block;
+
+    cursor: pointer;
+
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+
+}
+
+@layer default {
+
+  *:focus-visible:where(:not([role="dialog"])),
+  [mat-button]:focus-visible {
+    outline: solid 3px #95bfff;
+    outline-offset: 3px;
+  }
+
+  :where(:not(:defined)) {
+    display: block;
+  }
+
+  /* Normalize background-image */
+  *,
+  *::before,
+  *::after {
+    background-repeat: no-repeat;
+  }
+
+  /*
+    Avoid autocalculation of `min-width` and `min-height` properties
+    of flex/grid items to affect `flex-shrink` based on the intrinsic size of its content
+  */
+  * {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  /* Normalize flex-items behavior */
+  * {
+    flex-shrink: 0;
+  }
+
+  * {
+    transition-property: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :root {
+    user-select: none;
+
+    & * {
+      user-select: inherit;
+    }
+  }
+
+  img, canvas, svg, picture,
+  video, audio,
+  iframe, object, embed,
+  input, select, textarea,
+  button,
+  progress, meter {
+    display: block;
+  }
+
+  input, textarea {
+    color: inherit;
+    font-size: inherit;
+  }
+  
+  fieldset, blockquote, figure {
+    margin: 0;
+  }
+  
+  fieldset {
+    padding: 0.6rem 0.8rem;
+    border: solid 2px #c0c0c0;
+  }
+
+  pre {
+    margin: 0;
+    font-family: monospace;
+    white-space: pre;
+  }
+  
+  legend {
+    border: none;
+    padding: 0.3em;
+  }
+  
+  iframe {
+    border: none;
+  }
+  
+  source {
+    display: none;
+  }
+
+  hr {
+    border: none;
+    background-color: #ccc;
+    height: 0.2em;
+    margin: 0.5em auto;
+  }
+  
+  p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+  }
+
+  ::selection {
+    /* background-color: #22ceff88; */
+  }
+
+  ::selection:window-inactive {
+    /* background-color: #22ceff88; */
+  }
+
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  position: fixed;
+  overflow: auto;
+}
+
+body {
+  overflow: hidden;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+
+:root {
+  background-color: #f1f1f1;
+  color: #222;
+
+  /*
+    Remove highlight that appears on links or clickable elements on mobile.
+    https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
+  */
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+router-outlet {
+  display: none;
+}

@@ -1,0 +1,112 @@
+:where([data-apply-material-overrides]) {
+
+  & .mat-mdc-form-field {
+    display: flex;
+
+    &[appearance="fill"] {
+      /* background-color of [appearance="fill"] mat-form-field */
+      --mdc-filled-text-field-container-color: transparent;
+    }
+
+    & > .mat-mdc-text-field-wrapper {
+      display: flex;
+
+      --mdc-outlined-text-field-focus-outline-width: 0.125em;
+      --mdc-outlined-text-field-container-shape: 0.25em;
+      --mdc-outlined-text-field-outline-width: 0.0625em;
+
+      & > .mat-mdc-form-field-flex {
+        display: flex;
+
+        & > .mdc-notched-outline {
+
+          & > .mdc-notched-outline__leading {
+            width: 0.75em;
+          }
+
+          & > .mdc-notched-outline__notch {
+
+            /* &:is(.mdc-notched-outline--notched > &) {
+              width: !important;
+            } */
+
+            & > .mdc-floating-label {
+              pointer-events: none;
+
+              top: 1.8em;
+              /* left: 0.25em; */
+
+              /* transform: translateY(-0.6em) translateX(78%) !important; */
+              /* transform: translateY(calc(50% - 1.2em)) translateX(2em) !important; */
+              transform: translateY(calc(50% - 1.2em)) translateX(78%) !important;
+
+              &.mdc-floating-label--float-above {
+                transform: translateY(-2.2em) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75)) !important;
+              }
+
+              font-size: 1em;
+            }
+          }
+        }
+
+        & > .mat-mdc-form-field-icon-prefix {
+          padding: 0;
+
+          & > mat-icon {
+            padding: 0.5em;
+          }
+        }
+
+        & > .mat-mdc-form-field-infix {
+          min-height: 0;
+          width: 11.25em;
+
+          padding-block: 1em;
+
+          &:is(:not([appearance="outline"]) > :not(.mdc-text-field--no-label) > * > &) {
+            padding-top: 1.5em;
+            padding-bottom: 0.5em;
+          }
+
+          line-height: 1.5;
+
+          & > .mdc-floating-label {
+            pointer-events: none;
+
+            top: 1.8em;
+
+            font-size: 1em;
+          }
+        }
+
+        & > .mat-mdc-form-field-icon-suffix {
+          padding-block: 0.4em;
+          padding-inline: 0.6em;
+
+          & > [mat-icon-button] {
+            padding: 0.4em;
+          }
+
+          & > mat-icon {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+:where([data-apply-material-overrides]) {
+
+  & mat-select {
+
+    & > .mat-mdc-select-trigger {
+
+      & > .mat-mdc-select-arrow-wrapper {
+        display: none;
+      }
+    }
+  }
+}

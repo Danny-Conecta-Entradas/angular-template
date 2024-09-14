@@ -1,0 +1,58 @@
+:where([data-apply-material-overrides]) {
+
+  & .mat-mdc-button-base {
+    min-width: max-content;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    font-size: 1em;
+
+    line-height: unset;
+
+    & > :is(
+      .mat-mdc-button-touch-target,
+      .mat-mdc-focus-indicator,
+    ) {
+      pointer-events: none;
+    }
+
+    &:hover > .mat-mdc-button-persistent-ripple {
+      @media (hover: none) {
+        &::before {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  & [mat-button] {
+    height: auto;
+
+    padding: 0.8em;
+
+    & > mat-icon {
+      font-size: 1.5em;
+    }
+  }
+
+  & [mat-icon-button] {
+    box-sizing: content-box;
+
+    max-width: fit-content;
+    width: auto;
+    height: auto;
+
+    display: grid;
+    place-items: center;
+    /* place-content: center; */
+
+    padding: 0.7em;
+
+    & > mat-icon {
+      font-size: 1.5em;
+    }
+  }
+
+}

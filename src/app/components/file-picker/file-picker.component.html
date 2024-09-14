@@ -1,0 +1,30 @@
+<button class="input-file" (click)="input_file.showPicker()">
+    <input
+        #input_file
+        hidden
+        type="file"
+        [accept]="accept"
+        [attr.name]="name"
+        [multiple]="multiple"
+        (change)="onInputFileChange()"
+        (cancel)="onInputFileCancel()"
+    >
+
+    <div class="label-text">
+        <ng-content />
+    </div>
+
+    <ng-container *ngIf="value != null">
+        <div *ngIf="isFile(value)" class="file_name">
+            {{ value.name }}
+        </div>
+
+        <div *ngIf="!isFile(value)" class="file_name">
+            {{ value.length }} {{ value.length > 0 ? 'archivos' : 'archivo' }} seleccionados
+        </div>
+    </ng-container>
+
+    <div *ngIf="value == null" class="no_file_selected_message">
+        {{ noFileSelectedMessage || 'No se ha seleccionado ningún archivo' }}
+    </div>
+</button>

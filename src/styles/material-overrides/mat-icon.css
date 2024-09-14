@@ -1,0 +1,12 @@
+:where([data-apply-material-overrides]) {
+
+  & .mat-icon {
+    box-sizing: content-box;
+
+    width: 1em;
+    height: 1em;
+
+    font-size: 1.5em;
+  }
+
+}

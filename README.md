@@ -1,27 +1,93 @@
 # AngularTemplate
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
 
-## Development server
+## Command used to create project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```zsh
+npx -p @angular/cli@16.0.0 ng new angular-template
+```
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Angular v16 Requirements
 
-## Build
+https://v16.angular.io/guide/update-to-version-16#highlighted-breaking-changes-in-angular-v16
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+> - Angular requires Node.js v16 or v18
+> - In Angular v16, TypeScript versions 4.9.3 up to, but not including 5.2.0, are supported, with no support for versions older than 4.9.3
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Install Dependencies
 
-## Running end-to-end tests
+```sh
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Run Angular Development Server
 
-## Further help
+```sh
+npm run dev
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Command to create Component
+
+```sh
+npx ng generate component components/component-name
+
+# Pages are also component so you can create them with the same command like this
+npx ng generate component pages/page-name
+```
+
+
+## Command to create Directive
+
+```sh
+npx ng generate directive directives/directive-name
+```
+
+## Install Firebase
+
+```sh
+# https://firebase.google.com/docs/web/setup
+
+npm install firebase
+```
+
+
+## Install Material
+
+```sh
+# https://material.angular.io/guide/getting-started
+
+npx ng add @angular/material
+```
+
+## Material Icons
+
+https://fonts.google.com/icons
+
+
+## Material Components
+
+https://v16.material.angular.io/components/categories
+
+
+## mat-icon: How to switch between filled, outlined, rounded and two-toned icons?
+
+https://github.com/angular/components/issues/11544#issuecomment-521305891
+
+> This works for me:
+>
+> ```html
+> <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+> 
+> <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+> ```
+
+
+
+## Various Resources
+
+### How to generate apps with older @angular/cli version
+
+https://medium.com/ng-gotchas/easily-create-the-legacy-angular-apps-v2-v4-v5-v6-ee4a22d7eb60

@@ -1,13 +1,59 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>AngularTemplate</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Angular Template</title>
+
+        <base href="/">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <meta name="theme-color" content="#444">
+        <meta name="color-scheme" content="light">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=block" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Symbols+Outlined&display=block" rel="stylesheet">
+
+        <script>
+            //# sourceURL=handle-text-selection.inline.js
+
+            // Always remove text selection when the user clicks on any part of the document
+            // This is to avoid those annoying times when you want to remove the selection when clicking not selectable elements
+            window.addEventListener('mousedown', event => {
+              if (event.button !== 0) {
+                return
+              }
+
+              const selection = window.getSelection()
+
+              if (!selection.anchorNode) {
+                return
+              }
+
+              if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+                return
+              }
+
+              if (event.target === selection.anchorNode || event.target === selection.anchorNode.parentElement) {
+                return
+              }
+
+              selection.empty()
+            }, {capture: true})
+
+            window.addEventListener('touchstart', event => {
+              window.getSelection().empty()
+            }, {capture: true})
+        </script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <noscript>
+          Esta página requiere de JavaScript para poder funcionar correctamente.
+        </noscript>
+
+        <app-root></app-root>
+    </body>
 </html>

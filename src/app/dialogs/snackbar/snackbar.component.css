@@ -1,0 +1,65 @@
+::ng-deep mat-snack-bar-container:has(snackbar-component) {
+
+  & > .mdc-snackbar__surface {
+    padding: 0;
+
+    --mdc-snackbar-container-shape: 0px;
+    --mdc-snackbar-container-color: transparent;
+
+    & > .mat-mdc-snack-bar-label {
+      padding: 0;
+
+      --mdc-snackbar-supporting-text-size: normal;
+    }
+  }
+}
+
+
+:host {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+
+  padding-inline: 1rem;
+  padding-block: 0.9rem;
+
+  border-radius: 0.2rem;
+
+  background-color: #333;
+
+  &.-error {
+    background-color: #a72929;
+  }
+
+  & > .message {
+    flex-shrink: 1;
+  }
+
+  & > .dismiss-btn {
+    margin-left: auto;
+  }
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5em;
+}
+
+:host.-error {
+
+  & > .dismiss-btn {
+    background-color: #ffe6e6;
+    color: #d64c6b;
+  }
+}
+
+.dismiss-btn {
+  background-color: #d64c6b;
+
+  font-size: 0.8em;
+
+  & > mat-icon {
+    font-size: 1.7em;
+  }
+}

@@ -1,0 +1,23 @@
+:host {
+  width: fit-content;
+}
+
+button[mat-button] {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 0.5em;
+  
+  padding: 0.6em;
+  
+  color: var(--sub-text-color);
+  background-color: transparent;
+  
+  & mat-icon {
+    place-content: center;
+
+    width: 0.4em;
+
+    font-weight: bold;
+  }
+}

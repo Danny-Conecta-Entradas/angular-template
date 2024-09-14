@@ -1,0 +1,12 @@
+<div class="message">
+    <mat-icon *ngIf="data.showAsError">error</mat-icon>
+    {{ data.message }}
+</div>
+
+<button
+    class="dismiss-btn"
+    mat-icon-button
+    (click)="snackBarRef.dismiss()"
+>
+    <mat-icon>close</mat-icon>
+</button>
