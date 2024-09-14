@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-f',
+        'Dockerfile_prod',
+        '-t',
+        'europe-west1-docker.pkg.dev/$PROJECT_ID/containers/<SERVICE-NAME>:$SHORT_SHA',
+        '.',
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'europe-west1-docker.pkg.dev/$PROJECT_ID/containers/<SERVICE-NAME>:$SHORT_SHA',
+      ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
