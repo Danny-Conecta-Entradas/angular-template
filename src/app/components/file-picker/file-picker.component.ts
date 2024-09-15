@@ -1,18 +1,26 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
+
+import { MatIconModule } from '@angular/material/icon'
+import { MatRippleModule } from '@angular/material/core'
+
 import { createFileList } from 'src/utils/dom.utils'
 
 
 
 @Component({
   standalone: true,
+
   selector: 'file-picker',
   templateUrl: './file-picker.component.html',
   styleUrls: ['./file-picker.component.css'],
 
   imports: [
     CommonModule,
+
+    MatIconModule,
+    MatRippleModule,
   ],
 
   providers: [
@@ -53,6 +61,9 @@ export class FilePickerComponent implements AfterViewInit {
 
   @Input()
   noFileSelectedMessage: string | null = null
+
+  @Input()
+  disabled: boolean = false
 
 
   ngAfterViewInit() {

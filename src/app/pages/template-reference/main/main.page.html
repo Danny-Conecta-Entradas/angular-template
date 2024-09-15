@@ -40,7 +40,7 @@
     <mat-label>Label</mat-label>
 
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput type="text">
+    <input matInput type="text" disabled>
     <button
         mat-icon-button
         matSuffix
@@ -118,7 +118,7 @@
     <mat-label>Correo</mat-label>
 
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput type="email" name="email">
+    <input matInput type="email" name="email" disabled>
     <button
         mat-icon-button
         matSuffix
@@ -170,7 +170,7 @@
 
 <mat-form-field appearance="fill">
     <mat-icon matPrefix>event</mat-icon>
-    <mat-select>
+    <mat-select disabled>
         <mat-option value="1">Option 1</mat-option>
         <mat-option value="2">Option 2</mat-option>
         <mat-option value="3">Option 3</mat-option>
@@ -178,3 +178,14 @@
     </mat-select>
     <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
 </mat-form-field>
+
+
+<file-picker />
+
+<file-picker>
+    Label
+</file-picker>
+
+<file-picker [disabled]="true">
+    Archivo
+</file-picker>

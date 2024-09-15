@@ -15,6 +15,22 @@
       --mdc-outlined-text-field-container-shape: 0.25em;
       --mdc-outlined-text-field-outline-width: 0.0625em;
 
+      & > .mat-mdc-form-field-focus-overlay {
+        opacity: 1;
+
+        background-color: transparent;
+
+        @media (hover: hover) {
+          &:where(.mat-mdc-form-field:hover > .mat-mdc-text-field-wrapper > &) {
+            background-color: rgb(0 0 0 / 5%);
+          }
+        }
+
+        &:where(.mat-mdc-form-field:has(:focus-visible) > .mat-mdc-text-field-wrapper > &) {
+          background-color: rgb(0 0 0 / 13%);
+        }
+      }
+
       & > .mat-mdc-form-field-flex {
         display: flex;
 

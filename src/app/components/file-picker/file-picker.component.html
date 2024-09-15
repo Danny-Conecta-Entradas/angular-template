@@ -1,4 +1,9 @@
-<button class="input-file" (click)="input_file.showPicker()">
+<button
+    class="input-file"
+    mat-ripple
+    (click)="input_file.showPicker()"
+    [disabled]="disabled"
+>
     <input
         #input_file
         hidden
@@ -8,7 +13,12 @@
         [multiple]="multiple"
         (change)="onInputFileChange()"
         (cancel)="onInputFileCancel()"
+        [disabled]="disabled"
     >
+
+    <mat-icon fontSet="material-symbols-outlined">
+        {{ disabled ? 'attach_file_off' : 'attach_file' }}
+    </mat-icon>
 
     <div class="label-text">
         <ng-content />
