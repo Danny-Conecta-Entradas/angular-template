@@ -1,14 +1,14 @@
 /*
-  Style MatBottomSheet container of this component
+  Style MatDialog container of this component
 */
-::ng-deep mat-bottom-sheet-container:has(> .-is-bottom-sheet) {
+::ng-deep mat-dialog-container:has(> .mdc-dialog__container > .mat-mdc-dialog-surface > modal-template.-is-dialog) {
   /* padding: 0 !important; */
 }
 
 /*
-  Style MatDialog container of this component
+  Style MatBottomSheet container of this component
 */
-::ng-deep mat-dialog-container:has(> .mdc-dialog__container > .mat-mdc-dialog-surface > .-is-dialog) {
+::ng-deep mat-bottom-sheet-container:has(> modal-template.-is-bottom-sheet) {
   /* padding: 0 !important; */
 }
 
@@ -31,10 +31,24 @@
 
   border-radius: 1rem;
 
+  & > .dialog-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+  }
+
   &.-is-bottom-sheet {
-    padding: 1rem;
+    padding-inline: 1rem;
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
 
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+}
+
+
+.dialog-close-btn {
+
 }

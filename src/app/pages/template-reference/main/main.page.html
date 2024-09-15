@@ -32,6 +32,91 @@
 </button>
 
 <button
+    mat-raised-button
+>
+    <mat-icon>person</mat-icon>
+    MatRaisedButton
+    <mat-icon iconPositionEnd>person</mat-icon>
+</button>
+
+<button
+    mat-raised-button
+    disabled
+>
+    <mat-icon>person</mat-icon>
+    MatRaisedButton Disabled
+    <mat-icon iconPositionEnd>person</mat-icon>
+</button>
+
+
+<a href="/template-reference/main#">Link to nowhere</a>
+
+<a mat-button href="/template-reference/main#">
+    <mat-icon>person</mat-icon>
+    MatButton Link
+    <mat-icon iconPositionEnd>open_in_new_tab</mat-icon>
+</a>
+
+
+<mat-accordion>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                This is the expansion title
+            </mat-panel-title>
+
+            <mat-panel-description>
+                This is a summary of the content
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div>
+            Content
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header style="padding-left: 0.5rem; padding-right: 1rem;">
+            <div
+                class="head"
+                style="
+                    display: flex;
+                    align-items: center;
+                    column-gap: 0.5rem;
+                "
+            >
+                <button
+                    mat-icon-button
+                >
+                    <mat-icon>download</mat-icon>
+                </button>
+
+                <div
+                    class="info"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: 0.5rem;
+                    "
+                >
+                    <div class="name">Nombre</div>
+                    <div class="surname">Apellidos</div>
+                </div>
+
+                <mat-icon style="margin-left: auto;">check_circle</mat-icon>
+            </div>
+        </mat-expansion-panel-header>
+
+        <div class="body">
+            Content
+        </div>
+    </mat-expansion-panel>
+
+</mat-accordion>
+
+
+<button
     mat-button
     (click)="openSnackbar()"
 >
@@ -205,6 +290,20 @@
         mat-icon-button
         matSuffix
         disabled
+    >
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-form-field>
+
+
+<mat-form-field appearance="outline">
+    <mat-label>Correo</mat-label>
+
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput type="email" name="email">
+    <button
+        mat-icon-button
+        matSuffix
     >
         <mat-icon>clear</mat-icon>
     </button>

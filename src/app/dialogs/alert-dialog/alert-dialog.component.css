@@ -24,22 +24,16 @@
   font-size: 1.3em;
 }
 
-h1 {
-  user-select: none;
-}
-
 .title {
   display: flex;
   align-items: center;
   column-gap: 0.3em;
 
   font-size: 1.4rem;
-  padding-inline: 1rem;
   padding-bottom: 1rem;
 }
 
 .message {
-  padding-inline: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -51,9 +45,7 @@ h1 {
 
 button[mat-button] {
   width: 5.7em;
-  padding-block: 0.7em;
-
-  font-weight: 500;
+  padding: 0.5em;
 }
 
 .accept-btn {

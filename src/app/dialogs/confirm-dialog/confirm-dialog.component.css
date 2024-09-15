@@ -17,17 +17,12 @@
   border-radius: 0.8rem;
 }
 
-h1 {
-  user-select: none;
-}
-
 .title {
   display: flex;
   align-items: center;
   column-gap: 0.3em;
 
   font-size: 1.4rem;
-  padding-inline: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -36,7 +31,6 @@ h1 {
 }
 
 .message {
-  padding-inline: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -49,8 +43,7 @@ h1 {
 
 button[mat-button] {
   width: 5.1em;
-
-  font-weight: 500;
+  padding: 0.5em;
 }
 
 .cancel-btn {

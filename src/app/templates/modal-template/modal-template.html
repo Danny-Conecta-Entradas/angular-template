@@ -1,1 +1,17 @@
-<div>Sonic</div>
+<div>
+    Modal Template opened as
+    <span style="color: var(--accent-bg)">
+        {{ isDialog ? 'MatDialog' : 'MatBottomSheet' }}
+    </span>
+</div>
+
+
+<button
+    *ngIf="isDialog"
+    class="dialog-close-btn"
+    mat-icon-button
+    cdkFocusInitial
+    (click)="closeModal()"
+>
+    <mat-icon>close</mat-icon>
+</button>

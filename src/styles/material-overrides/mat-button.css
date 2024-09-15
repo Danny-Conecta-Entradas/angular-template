@@ -53,6 +53,13 @@
 
     padding: 0.8em;
 
+    /*
+      Avoid disabling pointer interaction on a MatButton Link with the `disabled` attribute
+    */
+    &:is(a[disabled]) {
+      pointer-events: auto;
+    }
+
     & > mat-icon {
       font-size: 1.5em;
     }
@@ -70,6 +77,8 @@
     /* place-content: center; */
 
     padding: 0.7em;
+
+    touch-action: auto !important;
 
     & > mat-icon {
       font-size: 1.5em;

@@ -130,7 +130,10 @@
 
 :where([data-apply-material-overrides]) {
 
-  & mat-select {
+  & .mat-mdc-select{
+    font-size: unset;
+    color: unset;
+    line-height: unset;
 
     & > .mat-mdc-select-trigger {
       cursor: default;

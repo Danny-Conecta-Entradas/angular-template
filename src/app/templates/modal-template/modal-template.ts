@@ -88,6 +88,14 @@ export class ModalTemplate implements AfterViewInit {
     }
   }
 
+  get isDialog() {
+    return this.modalRef instanceof MatDialogRef
+  }
+
+  get isBottomSheet() {
+    return this.modalRef instanceof MatBottomSheetRef
+  }
+
   /**
    * Close Modal without passing result data.
    */
