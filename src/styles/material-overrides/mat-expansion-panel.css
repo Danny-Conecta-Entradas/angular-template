@@ -81,6 +81,8 @@
     }
 
     & > .mat-expansion-panel-content {
+      font-size: unset;
+      line-height: unset;
 
       & > .mat-expansion-panel-body {
         padding-inline: 0.9rem;
