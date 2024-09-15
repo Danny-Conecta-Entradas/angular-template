@@ -46,6 +46,10 @@
           &:is(.mdc-form-field:is(:hover, :active) > .mdc-checkbox > &) {
             opacity: var(--mdc-checkbox-unselected-hover-state-layer-opacity);
 
+            @media (hover: none) {
+              opacity: 0;
+            }
+
             &:is(.mdc-form-field:active > .mdc-checkbox > &) {
               opacity: var(--mdc-checkbox-unselected-active-state-layer-opacity);
             }
@@ -55,6 +59,10 @@
 
           &:is(.mdc-form-field:is(:hover, :active) > .mdc-checkbox > :checked + &) {
             opacity: var(--mdc-checkbox-selected-hover-state-layer-opacity);
+
+            @media (hover: none) {
+              opacity: 0;
+            }
 
             &:is(.mdc-form-field:active > .mdc-checkbox > &) {
               opacity: var(--mdc-checkbox-selected-active-state-layer-opacity);
@@ -81,7 +89,7 @@
   & .mat-mdc-radio-button {
 
     &[class] {
-      --mdc-radio-selected-icon-color: #39c043;
+      --mdc-radio-selected-icon-color: #396dc0;
       --mdc-radio-selected-hover-icon-color: var(--mdc-radio-selected-icon-color);
       --mdc-radio-selected-pressed-icon-color: var(--mdc-radio-selected-icon-color);
       --mat-radio-checked-ripple-color: var(--mdc-radio-selected-icon-color);
@@ -100,10 +108,32 @@
             opacity: 0;
           }
 
-          &:is(:focus-visible + &)::before {
+          &:where(:focus-visible + &)::before {
             opacity: 0.12;
           }
+
+          @media (hover: hover) {
+            &:where(.mdc-form-field:hover > .mdc-radio > &) {
+  
+              &::before {
+                opacity: 0.09;
+                transform: scale(1);
+              }
+            }
+          }
+
+          @media (hover: hover) {
+            &:where(.mdc-form-field:hover > .mdc-radio > :checked + &)::before {
+              opacity: 0.15;
+            }
+          }
         }
+      }
+
+      & > .mdc-label {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
       }
     }
   }

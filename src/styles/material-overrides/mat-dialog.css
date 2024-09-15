@@ -1,0 +1,67 @@
+:where(app-root[data-apply-material-overrides] ~ .cdk-overlay-container) {
+
+  & > .cdk-global-overlay-wrapper:has(mat-dialog-container) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-content: stretch !important;
+    align-content: stretch !important;
+    justify-items: stretch !important;
+    align-items: stretch !important;
+
+    overflow: auto;
+
+    /*
+      Fix buggy entry animation of MatDialog on Safari Mac
+      caused by the `overflow: auto` added by me.
+      (other values also cause the bug except `visible` and `clip`
+    */
+    &:has(.ng-animating) {
+      overflow: clip;
+    }
+
+    & > * {
+      min-width: auto !important;
+      min-height: auto !important;
+
+      grid-column: 1 / span 1;
+      grid-row: 1 / span 1;
+    }
+
+    & > .cdk-overlay-pane {
+      pointer-events: none;
+
+      max-width: none !important;
+      max-height: none !important;
+
+      & > mat-dialog-container {
+        padding: 1rem;
+
+        @media (width <= 23.75em) {
+          padding: 0.6em;
+        }
+
+        & > .mdc-dialog__container {
+
+          & > .mat-mdc-dialog-surface {
+            pointer-events: none;
+
+            --mdc-dialog-container-color: transparent;
+
+            display: grid;
+
+            box-shadow: none;
+
+            overflow: visible;
+
+            & > :first-child {
+              pointer-events: auto;
+
+              margin: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}

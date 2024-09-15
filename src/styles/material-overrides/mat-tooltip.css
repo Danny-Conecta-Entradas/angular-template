@@ -1,0 +1,9 @@
+:where(app-root[data-apply-material-overrides] ~ .cdk-overlay-container) {
+
+  & > .cdk-overlay-connected-position-bounding-box {
+
+    & > .mat-mdc-tooltip-panel {
+      pointer-events: none;
+    }
+  }
+}

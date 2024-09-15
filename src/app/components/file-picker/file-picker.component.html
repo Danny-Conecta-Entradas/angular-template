@@ -1,6 +1,7 @@
 <button
     class="input-file"
     mat-ripple
+    [matRippleDisabled]="disabled"
     (click)="input_file.showPicker()"
     [disabled]="disabled"
 >

@@ -1,0 +1,65 @@
+:where(app-root[data-apply-material-overrides] ~ .cdk-overlay-container) {
+
+  & > .cdk-global-overlay-wrapper:has(mat-bottom-sheet-container) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-content: stretch !important;
+    align-items: stretch !important;
+
+    overflow: auto;
+
+    &:has(.ng-animating) {
+      overflow: hidden;
+    }
+
+    & > * {
+      min-width: auto;
+      min-height: auto;
+
+      grid-column: 1 / span 1;
+      grid-row: 1 / span 1;
+    }
+
+    & > .cdk-overlay-pane {
+      pointer-events: none;
+
+      flex-grow: 1;
+
+      max-width: none !important;
+      max-height: none !important;
+
+      & > mat-bottom-sheet-container {
+        flex-grow: 1;
+
+        --mat-bottom-sheet-container-background-color: transparent;
+
+        max-width: none;
+        max-height: none;
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+
+        padding: 0;
+
+        padding-top: 6rem;
+
+        box-shadow: none;
+
+        overflow: visible;
+
+        color: unset;
+        font-size: unset;
+        line-height: unset;
+        font-weight: unset;
+
+        & > :first-child {
+          pointer-events: auto;
+        }
+      }
+    }
+  }
+}

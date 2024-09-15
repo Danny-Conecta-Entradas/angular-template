@@ -1,0 +1,24 @@
+<h1 class="title">
+    <mat-icon
+        *ngIf="data.showAsError"
+        class="error-icon"
+    >
+        error
+    </mat-icon>
+
+    {{ data.title }}
+</h1>
+
+<div #message class="message"></div>
+
+<div class="actions">
+    <button
+        class="accept-btn"
+        mat-button
+        mat-dialog-close
+        [style.background-color]="this.data.acceptBgColor"
+        [style.color]="this.data.acceptColor"
+    >
+        {{ data.acceptText ?? 'Aceptar' }}
+    </button>
+</div>

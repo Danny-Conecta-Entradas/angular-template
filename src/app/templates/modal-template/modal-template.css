@@ -1,0 +1,40 @@
+/*
+  Style MatBottomSheet container of this component
+*/
+::ng-deep mat-bottom-sheet-container:has(> .-is-bottom-sheet) {
+  /* padding: 0 !important; */
+}
+
+/*
+  Style MatDialog container of this component
+*/
+::ng-deep mat-dialog-container:has(> .mdc-dialog__container > .mat-mdc-dialog-surface > .-is-dialog) {
+  /* padding: 0 !important; */
+}
+
+
+:host {
+  position: relative;
+
+  max-width: 800px;
+  width: 100%;
+  min-height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  padding-inline: 2rem;
+  padding-block: 3rem;
+
+  background-color: var(--main-bg);
+
+  border-radius: 1rem;
+
+  &.-is-bottom-sheet {
+    padding: 1rem;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

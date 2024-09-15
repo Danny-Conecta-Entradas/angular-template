@@ -1,0 +1,35 @@
+<h1 class="title">
+    <mat-icon
+        *ngIf="data.showAsWarning"
+        class="warning-icon"
+    >
+        warning
+    </mat-icon>
+
+    {{ data.title }}
+</h1>
+
+<div #message class="message"></div>
+
+<div class="actions">
+    <button
+        class="cancel-btn"
+        mat-button
+        [mat-dialog-close]="false"
+        cdkFocusInitial
+        [style.background-color]="data.cancelBgColor"
+        [style.color]="data.cancelColor"
+    >
+        {{ data.cancelText ?? 'Cancelar' }}
+    </button>
+
+    <button
+        class="accept-btn"
+        mat-button
+        [mat-dialog-close]="true"
+        [style.background-color]="data.okBgColor"
+        [style.color]="data.okColor"
+    >
+        {{ data.okText ?? 'Aceptar' }}
+    </button>
+</div>

@@ -18,10 +18,31 @@
       pointer-events: none;
     }
 
-    &:hover > .mat-mdc-button-persistent-ripple {
-      @media (hover: none) {
+    & > .mat-mdc-button-persistent-ripple[class] {
+
+      &::before {
+        opacity: 0;
+      }
+    }
+
+    &:focus-visible {
+
+      & > .mat-mdc-button-persistent-ripple {
+
         &::before {
-          opacity: 0;
+          opacity: 0.12;
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+  
+        & > .mat-mdc-button-persistent-ripple {
+  
+          &::before {
+            opacity: 0.12;
+          }
         }
       }
     }
@@ -55,4 +76,48 @@
     }
   }
 
+}
+
+
+:where(app-root[data-apply-material-overrides] ~ .cdk-overlay-container) {
+
+  & > .cdk-overlay-backdrop {
+
+    /* <mat-menu> */
+    &.cdk-overlay-backdrop-showing {
+    /* &.cdk-overlay-backdrop-showing:has(+ div > :first-child > .mat-mdc-menu-panel) { */
+      opacity: 1;
+      background-color: rgb(0 0 0 / 44%);
+    }
+  }
+
+  & > .cdk-overlay-connected-position-bounding-box {
+
+    & > .cdk-overlay-pane {
+
+      & > .mat-mdc-menu-panel {
+        max-width: none;
+
+        & > .mat-mdc-menu-content {
+          padding-block: 0.5em;
+          /* padding-inline: 0.8em; */
+
+          & > [mat-menu-item] {
+            min-height: 0;
+
+            column-gap: 0.5em;
+
+            padding-block: 0.6em;
+            padding-inline: 0.9em;
+
+            cursor: default;
+      
+            & > mat-icon {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }

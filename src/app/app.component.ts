@@ -43,7 +43,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.#removeRouterOutlet()
 
-    // this.#modifyBackdropStructureToBeAbleToHaveOwnScrollingForEachModal()
+    this.#modifyBackdropStructureToBeAbleToHaveOwnScrollingForEachModal()
 
     this.#removeAnnoyingMaterialCSS()
   }

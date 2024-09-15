@@ -3,6 +3,11 @@
   & .mat-mdc-form-field {
     display: flex;
 
+    --mdc-outlined-text-field-disabled-outline-color: rgba(0, 0, 0, 0.17);
+
+    /* --mdc-filled-text-field-disabled-container-color: var(--mdc-outlined-text-field-disabled-outline-color); */
+    --mdc-filled-text-field-disabled-active-indicator-color: var(--mdc-outlined-text-field-disabled-outline-color);
+
     &[appearance="fill"] {
       /* background-color of [appearance="fill"] mat-form-field */
       --mdc-filled-text-field-container-color: transparent;
@@ -70,6 +75,11 @@
 
           & > mat-icon {
             padding: 0.5em;
+
+            &:is(.mat-mdc-form-field.mat-form-field-disabled > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mat-mdc-form-field-icon-prefix > &) {
+              pointer-events: none;
+              color: var(--mdc-outlined-text-field-disabled-outline-color);
+            }
           }
         }
 
@@ -105,6 +115,10 @@
 
           & > mat-icon {
             padding: 0;
+
+            &:is(.mat-mdc-form-field.mat-form-field-disabled > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mat-mdc-form-field-icon-suffix > &) {
+              color: var(--mdc-outlined-text-field-disabled-outline-color);
+            }
           }
         }
       }

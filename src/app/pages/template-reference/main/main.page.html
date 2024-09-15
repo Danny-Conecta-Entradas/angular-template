@@ -1,14 +1,13 @@
 <button
-    mat-button
-    (click)="openSnackbar()"
+    mat-icon-button
+    matTooltip="Mat-Icon-Button"
 >
-    Open SnackBar
+    <mat-icon>content_copy</mat-icon>
 </button>
-
 
 <button
     mat-icon-button
-    matTooltip="Mat-Icon-Button"
+    disabled
 >
     <mat-icon>content_copy</mat-icon>
 </button>
@@ -17,14 +16,109 @@
 <!-- https://github.com/angular/components/issues/26253#issuecomment-1350647819 -->
 <button
     mat-button
-    (click)="openSnackbarError()"
 >
     <mat-icon>person</mat-icon>
     MatButton with a Prefix and Suffix icon
     <mat-icon iconPositionEnd>person</mat-icon>
 </button>
 
+<button
+    mat-button
+    disabled
+>
+    <mat-icon>person</mat-icon>
+    Disabled MatButton
+    <mat-icon iconPositionEnd>person</mat-icon>
+</button>
+
+<button
+    mat-button
+    (click)="openSnackbar()"
+>
+    Open SnackBar
+</button>
+
+<button
+    mat-button
+    (click)="openSnackbarError()"
+>
+    Open SnackBar Error
+</button>
+
+
+<button
+    mat-button
+    (click)="openAlert()"
+>
+    Open Alert Dialog
+</button>
+
+<button
+    mat-button
+    (click)="openAlertError()"
+>
+    Open Alert Error Dialog
+</button>
+
+
+<button
+    mat-button
+    (click)="openConfirm()"
+>
+    Open Confirm Dialog
+</button>
+
+<button
+    mat-button
+    (click)="openConfirmWarning()"
+>
+    Open Confirm Warning Dialog
+</button>
+
+
+<button
+    mat-button
+    (click)="openModalTemplateAsDialog()"
+>
+    Open Modal Template as Dialog
+</button>
+
+<button
+    mat-button
+    (click)="openModalTemplateAsBottomSheet()"
+>
+    Open Modal Template as BottomSheet
+</button>
+
+<button
+    mat-button
+    [matMenuTriggerFor]="mat_menu"
+>
+    Open MatMenu
+</button>
+
+<mat-menu #mat_menu>
+    <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        Action 1
+    </button>
+    <button mat-menu-item>Action 2</button>
+</mat-menu>
+
+<button
+    mat-button
+    [matMenuTriggerFor]="mat_menu"
+    (click)="global.console.log(mat_menu)"
+>
+    Open MatMenu that matches button width
+</button>
+
+
 <mat-checkbox>
+    Checkbox
+</mat-checkbox>
+
+<mat-checkbox indeterminate>
     Checkbox
 </mat-checkbox>
 
@@ -44,6 +138,7 @@
     <button
         mat-icon-button
         matSuffix
+        disabled
     >
         <mat-icon>clear</mat-icon>
     </button>
@@ -105,10 +200,11 @@
 
 <mat-form-field appearance="fill">
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput type="text">
+    <input matInput type="text" disabled>
     <button
         mat-icon-button
         matSuffix
+        disabled
     >
         <mat-icon>clear</mat-icon>
     </button>
@@ -118,7 +214,7 @@
     <mat-label>Correo</mat-label>
 
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput type="email" name="email" disabled>
+    <input matInput type="email" name="email">
     <button
         mat-icon-button
         matSuffix

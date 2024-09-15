@@ -11,7 +11,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angula
   <!--
     This `<div>` will hide if value changes to `false` after 1000 miliseconds
   -->
-  <div *delayedIf="true; exitTimeout: 1000">
+  <div *delayedIf="true; entryTimeout: 500; exitTimeout: 1000">
   ```
 */
 
@@ -27,24 +27,34 @@ export class DelayedIfDirective {
 
   readonly #viewContainerRef = inject(ViewContainerRef)
 
-  delayTimeoutId = -1
-
   @Input()
   set delayedIf(condition: boolean) {
     if (condition) {
-      window.clearTimeout(this.delayTimeoutId)
+      window.clearTimeout(this.#exitDelayTimeoutId)
 
       if (this.#viewContainerRef.length > 0) {
         return
       }
 
-      this.#viewContainerRef.createEmbeddedView(this.#templateRef)
+      if (typeof this.entryTimeout === 'number') {
+        this.#entryDelayTimeoutId = window.setTimeout(
+          () => {
+            this.#viewContainerRef.createEmbeddedView(this.#templateRef)
+          },
+          this.#entryDelayTimeoutId
+        )
+      }
+      else {
+        this.#viewContainerRef.createEmbeddedView(this.#templateRef)
+      }
 
       return
     }
 
+    window.clearTimeout(this.#entryDelayTimeoutId)
+
     if (typeof this.exitTimeout === 'number') {
-      this.delayTimeoutId = window.setTimeout(
+      this.#exitDelayTimeoutId = window.setTimeout(
         () => {
           this.#viewContainerRef.clear()
         },
@@ -56,7 +66,14 @@ export class DelayedIfDirective {
     }
   }
 
+  @Input('delayedIfEntryTimeout')
+  entryTimeout: null | number = null
+
+  #entryDelayTimeoutId = -1
+
   @Input('delayedIfExitTimeout')
   exitTimeout: null | number = null
+
+  #exitDelayTimeoutId = -1
 
 }

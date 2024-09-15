@@ -1,22 +1,27 @@
 @import url('./styles/default.css');
-@import url('./styles/material-overrides/index.css');
+@import url('./styles/material-overrides/_index.css');
 
 :root {
-  background-color: #f1f1f1;
-  color: #222;
+  --primary-bg: #399;
+  --primary-text: #fff;
 
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  --accent-bg: #4557b6;
+  --accent-text: #fff;
+
+  --warn-bg: #e66969;
+  --warn-text: #fff;
+
+  --main-bg: #f1f1f1;
+  --main-text: #222;
+
+  /* --complementary-bg: ; */
 }
 
 :root {
-  --primary-bg: unset;
-  --primary-text: unset;
+  background-color: var(--main-bg);
+  color: var(--main-text);
 
-  --accent-bg: unset;
-  --accent-text: unset;
-
-  --warn-bg: unset;
-  --warn-text: unset;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 

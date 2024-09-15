@@ -1,0 +1,64 @@
+:host {
+  max-width: 500px;
+  width: 100%;
+  padding: 1rem;
+  padding-block: 1.5rem;
+
+  background-color: #fff;
+
+  &.-has-warning {
+    outline: solid 2px #e66969;
+  }
+
+  /* &:where(:root.dark &) {
+    background-color: var(--main-bg);
+  } */
+
+  border-radius: 0.8rem;
+}
+
+h1 {
+  user-select: none;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  column-gap: 0.3em;
+
+  font-size: 1.4rem;
+  padding-inline: 1rem;
+  padding-bottom: 1rem;
+}
+
+.warning-icon {
+  color: #e66969;
+}
+
+.message {
+  padding-inline: 1rem;
+  padding-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 0.8em;
+}
+
+button[mat-button] {
+  width: 5.1em;
+
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background-color: var(--warn-bg);
+  color: var(--warn-text);
+}
+
+.accept-btn {
+  background-color: var(--accent-bg);
+  color: var(--accent-text);
+}
