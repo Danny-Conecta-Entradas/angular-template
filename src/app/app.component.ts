@@ -79,14 +79,9 @@ export class AppComponent implements AfterViewInit {
    * Move global stylesheet to the bottom to have priority from styles from other components.
    */
   #moveGlobalStylesToTheBottom() {
-    const globalStyleSheet = document.head.querySelector(`:scope > link[rel="stylesheet"][href="styles.css"]`)
+    const globalStyleSheets = document.head.querySelectorAll(`:scope > link[rel="stylesheet"][href^="styles."]`)
 
-    if (globalStyleSheet == null) {
-      console.warn(`Couln't find global stylesheet`)
-      return
-    }
-
-    document.body.prepend(globalStyleSheet)
+    document.body.prepend(...globalStyleSheets)
   }
 
   #removeAnnoyingMaterialCSS() {
@@ -108,12 +103,15 @@ export class AppComponent implements AfterViewInit {
           return
         }
 
-        rule.styleMap.delete('cursor')
-        rule.styleMap.delete('outline')
-        rule.styleMap.delete('border')
-        rule.styleMap.delete('min-width')
-        rule.styleMap.delete('background')
-        // rule.styleMap.delete('height')
+        // StyleMap is not supported by Firefox
+        // rule.styleMap.delete('cursor')
+
+        rule.style.removeProperty('cursor')
+        rule.style.removeProperty('outline')
+        rule.style.removeProperty('border')
+        rule.style.removeProperty('min-width')
+        rule.style.removeProperty('background')
+        // rule.style.removeProperty('height')
       },
 
       // MatIcon
@@ -139,19 +137,26 @@ export class AppComponent implements AfterViewInit {
       }
     }
 
-    this.#router.events.subscribe((event) => {
-      if (!(event instanceof NavigationEnd)) {
-        return
-      }
-
-      window.setTimeout(() => removeStyles(), 500)
-    })
-
     const overlayWrapper = this.overlayContainer.getContainerElement()
+
+    function isSafariMac() {
+      return /Version\/\d+\.\d+ Safari\/\d+\.\d+\.\d+/.test(navigator.userAgent)
+    }
+
+    // On Mac Safari `document.styleSheets` does not immediatly
+    // reflects stylesheets that were re-appended to the document (which happens when calling the method `#moveGlobalStylesToTheBottom()` at the start)
+    // So we need to wait and remove the styles after that.
+    if (isSafariMac()) {
+      window.setTimeout(() => removeStyles())
+    }
 
     // @ts-ignore
     const observer = new MutationObserver.__zone_symbol__OriginalDelegate((recordList) => {
       removeStyles()
+    })
+
+    observer.observe(document.head, {
+      childList: true,
     })
 
     observer.observe(overlayWrapper, {
