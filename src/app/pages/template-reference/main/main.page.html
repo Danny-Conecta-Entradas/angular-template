@@ -238,7 +238,7 @@
 <button
     mat-button
     [matMenuTriggerFor]="mat_menu"
-    (click)="global.console.log(mat_menu)"
+    (click)="materialTemplateUtils.matchMatMenuWidthToMenuTriggerWidth(mat_menu, $event)"
 >
     Open MatMenu that matches button width
 </button>

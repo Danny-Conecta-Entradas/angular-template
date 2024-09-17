@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit } from '@angular/core'
+import { MatMenu } from '@angular/material/menu'
 
 @Component({
   host: {},
@@ -28,9 +29,38 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
 
   readonly lifeCycleEvents = new LifeCycleEvents()
 
-  readonly templateUtils
+  readonly templateUtils = new class TemplateUtils {}
 
-  readonly materialTemplateUtils
+  readonly materialTemplateUtils = new class MaterialTemplateUtils {
+
+    matchMatMenuWidthToMenuTriggerWidth(menu: MatMenu, event: MouseEvent) {
+      const animationSubscription = menu._animationDone.subscribe((animationEvent) => {
+        if (animationEvent.toState === 'enter') {
+          animationSubscription.unsubscribe()
+          return
+        }
+
+        const menuElement = animationEvent.element as HTMLElement
+
+        const menuTrigger = event.currentTarget as HTMLElement
+
+        const resizeObserver = new ResizeObserver((entries) => {
+          menuElement.style.width = `${menuTrigger.offsetWidth}px`
+        })
+
+        resizeObserver.observe(menuTrigger)
+
+        const innerAnimationSubscription = menu._animationDone.subscribe((innerAnimationEvent) => {
+          if (innerAnimationEvent.toState === 'void') {
+            innerAnimationSubscription.unsubscribe()
+
+            resizeObserver.unobserve(menuTrigger)
+          }
+        })
+      })
+    }
+
+  }
 
 }
 
