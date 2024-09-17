@@ -31,10 +31,10 @@ export class TemplateReferenceMainPage extends BaseComponent {
 
   readonly global = window
 
-  async openSnackbar() {
+  async openSnackbar(message?: string) {
     await openSnackBar({
-      message: 'This is a snackbar',
-      duration: Infinity,
+      message: message ?? 'This is a snackbar',
+      duration: message != null ? 3000 : Infinity,
     })
   }
 

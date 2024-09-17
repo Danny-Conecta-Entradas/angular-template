@@ -22,6 +22,10 @@
 
     & > .mdc-button__label {
       flex-shrink: 1;
+
+      display: flex;
+      align-items: center;
+      column-gap: 0.5em;
     }
 
     & > :is(
@@ -107,10 +111,22 @@
 
   }
 
+  & .mat-button-toggle-group {
+
+  }
+
   & .mat-button-toggle {
 
     & > .mat-button-toggle-button {
+      height: 100%;
       cursor: inherit;
+
+      & > .mat-button-toggle-label-content {
+        height: 100%;
+
+        display: grid;
+        place-items: center;
+      }
     }
   }
 

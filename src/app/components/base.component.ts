@@ -29,10 +29,72 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
 
   readonly lifeCycleEvents = new LifeCycleEvents()
 
-  readonly templateUtils = new class TemplateUtils {}
+  readonly templateUtils = new class TemplateUtils {
+
+    preventLinkNavigationFromInnerElement(event: MouseEvent) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    /**
+     * Prevent dragging on inner buttons of links
+     */
+    preventDragOnInnerElementOfLink(anchor: HTMLAnchorElement, event: MouseEvent) {
+      anchor.draggable = false
+
+      const button = event.currentTarget as HTMLElement
+
+      // Prevent navigation when initiating click on innerButton
+      // but ending the click inside the anchor but outside the innerButton
+      const preventNavigationListener = (event: MouseEvent) => {
+        if (!event.isTrusted) {
+          return
+        }
+
+        if (event.composedPath().includes(button)) {
+          return
+        }
+
+        event.stopPropagation()
+        event.preventDefault()
+      }
+
+      anchor.addEventListener('click', preventNavigationListener, {capture: true})
+
+      const cleanUpClickListener = (event: MouseEvent) => {
+        if (!event.isTrusted) {
+          return
+        }
+
+        window.removeEventListener('click', cleanUpClickListener, {capture: true})
+
+        window.setTimeout(() => {
+          anchor.removeEventListener('click', preventNavigationListener, {capture: true})
+        })
+      }
+
+      window.addEventListener('click', cleanUpClickListener, {capture: true})
+
+      const cleanUpPointerUpListener = (event: MouseEvent) => {
+        if (!event.isTrusted) {
+          return
+        }
+
+        anchor.removeAttribute('draggable')
+
+        window.removeEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
+      }
+
+      window.addEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
+    }
+
+  }
 
   readonly materialTemplateUtils = new class MaterialTemplateUtils {
 
+    /**
+     * 
+     */
     matchMatMenuWidthToMenuTriggerWidth(menu: MatMenu, event: MouseEvent) {
       const animationSubscription = menu._animationDone.subscribe((animationEvent) => {
         if (animationEvent.toState === 'enter') {

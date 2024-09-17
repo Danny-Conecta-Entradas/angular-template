@@ -38,6 +38,7 @@
   }
 
   button {
+    cursor: default;
 
     &:disabled {
       cursor: not-allowed;
