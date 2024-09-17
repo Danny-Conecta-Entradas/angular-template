@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit } from '@angular/core'
+import { MatAnchor } from '@angular/material/button'
 import { MatMenu } from '@angular/material/menu'
 
 @Component({
@@ -39,8 +40,13 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
     /**
      * Prevent dragging on inner buttons of links
      */
-    preventDragOnInnerElementOfLink(anchor: HTMLAnchorElement, event: MouseEvent) {
-      anchor.draggable = false
+    preventDragOnInnerElementOfLink(anchor: HTMLAnchorElement | MatAnchor, event: MouseEvent) {
+      const anchorElement = anchor instanceof HTMLAnchorElement ? anchor : (anchor._elementRef.nativeElement as HTMLAnchorElement)
+      anchorElement.draggable = false
+
+      if (anchor instanceof MatAnchor) {
+        anchor.disableRipple = true
+      }
 
       const button = event.currentTarget as HTMLElement
 
@@ -59,7 +65,7 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
         event.preventDefault()
       }
 
-      anchor.addEventListener('click', preventNavigationListener, {capture: true})
+      anchorElement.addEventListener('click', preventNavigationListener, {capture: true})
 
       const cleanUpClickListener = (event: MouseEvent) => {
         if (!event.isTrusted) {
@@ -68,8 +74,12 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
 
         window.removeEventListener('click', cleanUpClickListener, {capture: true})
 
+        if (anchor instanceof MatAnchor) {
+          anchor.disableRipple = false
+        }
+
         window.setTimeout(() => {
-          anchor.removeEventListener('click', preventNavigationListener, {capture: true})
+          anchorElement.removeEventListener('click', preventNavigationListener, {capture: true})
         })
       }
 
@@ -80,7 +90,7 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
           return
         }
 
-        anchor.removeAttribute('draggable')
+        anchorElement.removeAttribute('draggable')
 
         window.removeEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
       }

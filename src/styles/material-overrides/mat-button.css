@@ -53,7 +53,7 @@
     }
 
     @media (hover: hover) {
-      &:hover:where(:not(:disabled)) {
+      &:hover:where(:not(:disabled):not(:has(button:hover))) {
   
         & > .mat-mdc-button-persistent-ripple {
   

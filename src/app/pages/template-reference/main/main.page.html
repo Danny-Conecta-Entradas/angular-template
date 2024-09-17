@@ -79,7 +79,7 @@
 <a mat-button href="/template-reference/main#">
     <mat-icon>person</mat-icon>
     MatButton Link
-    <mat-icon iconPositionEnd>open_in_new_tab</mat-icon>
+    <mat-icon iconPositionEnd>open_in_new</mat-icon>
 </a>
 
 
@@ -97,7 +97,7 @@
             templateUtils.preventLinkNavigationFromInnerElement($event);
             openSnackbar('Navigation prevented on this button inside the link');
         "
-        (pointerdown)="templateUtils.preventDragOnInnerElementOfLink(anchor._elementRef.nativeElement, $event)"
+        (pointerdown)="templateUtils.preventDragOnInnerElementOfLink(anchor, $event)"
     >
         <mat-icon iconPositionEnd>edit</mat-icon>
     </button>
