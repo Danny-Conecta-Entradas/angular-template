@@ -16,6 +16,7 @@ import { GoogleSignInBtnComponent } from 'src/app/components/google-sign-in-btn/
 import { DelayedIfDirective } from 'src/app/directives/delayed-if.directive'
 import { ExactActiveRouterLinkDirective } from 'src/app/directives/exact-active-router-link.directive'
 import { InputDragoverFocusDirective } from 'src/app/directives/input-dragover-focus.directive'
+import { InputAutofillDirective } from 'src/app/directives/input-autofill.directive'
 import { TypeButtonDirective } from 'src/app/directives/type-button.directive'
 
 // Pages
@@ -55,6 +56,7 @@ import { MaterialModule } from 'src/app/modules/material.module'
     DelayedIfDirective,
     ExactActiveRouterLinkDirective,
     InputDragoverFocusDirective,
+    InputAutofillDirective,
     TypeButtonDirective,
   ],
   providers: [],

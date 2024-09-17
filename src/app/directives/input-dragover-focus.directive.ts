@@ -16,7 +16,7 @@ export class InputDragoverFocusDirective implements OnInit {
 
   constructor() {}
 
-  readonly #inputRef = inject(ElementRef) as ElementRef<HTMLInputElement>
+  readonly #inputRef = inject(ElementRef) as ElementRef<HTMLInputElement | HTMLTextAreaElement>
 
   ngOnInit() {
     const target = this.#inputRef.nativeElement

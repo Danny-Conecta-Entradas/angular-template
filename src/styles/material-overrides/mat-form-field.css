@@ -12,10 +12,16 @@
     /* --mdc-filled-text-field-disabled-container-color: var(--mdc-outlined-text-field-disabled-outline-color); */
     --mdc-filled-text-field-disabled-active-indicator-color: var(--mdc-outlined-text-field-disabled-outline-color);
 
-    &[appearance="fill"] {
-      /* background-color of [appearance="fill"] mat-form-field */
-      --mdc-filled-text-field-container-color: transparent;
+    & {
+      --background-color: transparent;
+      --autofill-background-color: #68daff42;
     }
+
+    &:has(:is(input, textarea)[data-autofill]) {
+      --background-color: var(--autofill-background-color);
+    }
+
+    &[appearance="fill"] {}
 
     &.mat-form-field-disabled {
       cursor: not-allowed;
@@ -28,19 +34,29 @@
       --mdc-outlined-text-field-container-shape: 0.25em;
       --mdc-outlined-text-field-outline-width: 0.0625em;
 
+      background-color: transparent;
+
       & > .mat-mdc-form-field-focus-overlay {
         opacity: 1;
 
-        background-color: transparent;
+        background-color: var(--background-color);
 
         @media (hover: hover) {
           &:where(.mat-mdc-form-field:hover > .mat-mdc-text-field-wrapper > &) {
-            background-color: rgb(0 0 0 / 5%);
+            --background-color: rgb(0 0 0 / 5%);
+
+            &:is(:has(:is(input, textarea)[data-autofill]) > * > &) {
+              --background-color: color-mix(in oklab, var(--autofill-background-color) 100%, rgb(0 0 0 / 5%) 20%);
+            }
           }
         }
 
         &:where(.mat-mdc-form-field:has(:focus-visible) > .mat-mdc-text-field-wrapper > &) {
-          background-color: rgb(0 0 0 / 13%);
+          --background-color: rgb(0 0 0 / 13%);
+
+          &:is(:has(:is(input, textarea)[data-autofill]) > * > &) {
+            --background-color: color-mix(in oklab, var(--autofill-background-color) 100%, rgb(0 0 0 / 13%) 20%);
+          }
         }
       }
 
@@ -51,9 +67,12 @@
 
           & > .mdc-notched-outline__leading {
             width: 0.75em;
+
+            background-color: var(--background-color);
           }
 
           & > .mdc-notched-outline__notch {
+            background-color: var(--background-color);
 
             /* &:is(.mdc-notched-outline--notched > &) {
               width: !important;
@@ -75,6 +94,10 @@
 
               font-size: 1em;
             }
+          }
+
+          & > .mdc-notched-outline__trailing {
+            background-color: var(--background-color);
           }
         }
 
