@@ -1,14 +1,15 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { lastValueFrom } from 'rxjs'
+import { CommonModule } from '@angular/common'
+
+import { MaterialModule } from 'src/app/modules/material.module'
 import { MatButtonModule } from '@angular/material/button'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon'
-import { lastValueFrom } from 'rxjs'
 
-import { AppModule } from 'src/app/app.module'
-import { CommonModule } from '@angular/common'
 
 @Component({
   standalone: true,
@@ -75,7 +76,7 @@ export async function openAlertDialog(options: AlertDialogOptions) {
   type DialogArg = typeof options
   type DialogResult = Awaited<ReturnType<typeof openAlertDialog>>
 
-  const dialog = AppModule.dialog
+  const dialog = MaterialModule.dialog
 
   const dialogRef = dialog.open<AlertDialogComponent, DialogArg, DialogResult>(AlertDialogComponent, {
     data: options,

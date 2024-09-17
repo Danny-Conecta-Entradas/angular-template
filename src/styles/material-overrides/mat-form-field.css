@@ -1,5 +1,9 @@
 :where([data-apply-material-overrides]) {
 
+  & mat-label {
+    display: inline;
+  }
+
   & .mat-mdc-form-field {
     display: flex;
 
@@ -11,6 +15,10 @@
     &[appearance="fill"] {
       /* background-color of [appearance="fill"] mat-form-field */
       --mdc-filled-text-field-container-color: transparent;
+    }
+
+    &.mat-form-field-disabled {
+      cursor: not-allowed;
     }
 
     & > .mat-mdc-text-field-wrapper {
@@ -136,7 +144,7 @@
     line-height: unset;
 
     & > .mat-mdc-select-trigger {
-      cursor: default;
+      cursor: inherit;
 
       & > .mat-mdc-select-arrow-wrapper {
         display: none;

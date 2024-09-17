@@ -47,8 +47,6 @@ a:any-link {
   }
 
   & > [data-page-component] {
-    flex-grow: 1;
-
     padding: 1rem;
 
     @media (width <= 23.75em) {

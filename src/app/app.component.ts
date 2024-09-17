@@ -94,6 +94,7 @@ export class AppComponent implements AfterViewInit {
       `.mat-mdc-button > .mat-icon`,
       `.mat-mdc-button .mdc-button__label + .mat-icon`,
       `.mat-mdc-icon-button.mat-mdc-button-base`,
+      `.mat-mdc-raised-button:not(:disabled)`,
       (rule) => {
         if (
           rule.selectorText !== '.mdc-button'

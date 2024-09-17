@@ -1,5 +1,9 @@
+import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component, ElementRef, inject, Optional } from '@angular/core'
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { lastValueFrom } from 'rxjs'
+
+import { MaterialModule } from 'src/app/modules/material.module'
 import { MatButtonModule } from '@angular/material/button'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet'
@@ -9,10 +13,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
-import { lastValueFrom } from 'rxjs'
-import { CommonModule } from '@angular/common'
 
-import { AppModule } from 'src/app/app.module'
 
 /*********************************************************/
 /* Generic Template for building ready to use Modals */
@@ -136,8 +137,8 @@ export class ModalTemplate implements AfterViewInit {
 type ModalOptions = {
 
   /**
-   * Show the Modal as a MatBottomSheet.  
-   * By default it shows a MatDialog.
+   * Display the Component as a MatBottomSheet.  
+   * By default it displays as a MatDialog.
    * 
    * Default value `false`
    */
@@ -155,7 +156,7 @@ type ModalOptions = {
 
 export async function openModalTemplate(options?: ModalOptions) {
   if (options?.asBottomSheet) {
-    const bottomSheet = AppModule.bottomSheet
+    const bottomSheet = MaterialModule.bottomSheet
 
     const bottomSheetRef = bottomSheet.open<ModalComponent, ModalOptions, ModalResult>(ModalTemplate, {
       data: options,
@@ -168,7 +169,7 @@ export async function openModalTemplate(options?: ModalOptions) {
     return bottomSheetResult
   }
 
-  const dialog = AppModule.dialog
+  const dialog = MaterialModule.dialog
 
   const dialogRef = dialog.open<ModalComponent, ModalOptions, ModalResult>(ModalTemplate, {
     data: options,

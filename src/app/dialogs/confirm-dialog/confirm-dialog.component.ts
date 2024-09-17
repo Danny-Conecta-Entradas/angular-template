@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { lastValueFrom } from 'rxjs'
+
 import { MatButtonModule } from '@angular/material/button'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
-import { lastValueFrom } from 'rxjs'
+import { MaterialModule } from 'src/app/modules/material.module'
 
-import { AppModule } from 'src/app/app.module'
 
 type DialogComponent = ConfirmDialog
 type DialogArg = ConfirmDialogOptions
@@ -79,7 +80,7 @@ type ConfirmDialogOptions = {
 }
 
 export async function openConfirmDialog(options: ConfirmDialogOptions): Promise<DialogResult> {
-  const dialog = AppModule.dialog
+  const dialog = MaterialModule.dialog
 
   const dialogRef = dialog.open<DialogComponent, DialogArg, DialogResult>(ConfirmDialog, {
     data: options,

@@ -1,15 +1,28 @@
 :where([data-apply-material-overrides]) {
 
   & .mat-mdc-button-base {
-    min-width: max-content;
+    /* min-width: max-content; */
 
+    height: auto;
+    
     display: flex;
     align-items: center;
     gap: 0.5em;
 
+    padding: 0.6em;
+
     font-size: 1em;
 
     line-height: unset;
+
+    &:disabled {
+      pointer-events: auto;
+      cursor: not-allowed;
+    }
+
+    & > .mdc-button__label {
+      flex-shrink: 1;
+    }
 
     & > :is(
       .mat-mdc-button-touch-target,
@@ -36,7 +49,7 @@
     }
 
     @media (hover: hover) {
-      &:hover {
+      &:hover:where(:not(:disabled)) {
   
         & > .mat-mdc-button-persistent-ripple {
   
@@ -46,23 +59,24 @@
         }
       }
     }
+
+    & > .mat-icon {
+      margin: 0;
+
+      width: 1em;
+      height: 1em;
+
+      font-size: 1.5em;
+
+      &[iconPositionEnd] {
+        margin: 0;
+        margin-left: auto;
+      }
+    }
   }
 
   & [mat-button] {
-    height: auto;
-
-    padding: 0.8em;
-
-    /*
-      Avoid disabling pointer interaction on a MatButton Link with the `disabled` attribute
-    */
-    &:is(a[disabled]) {
-      pointer-events: auto;
-    }
-
-    & > mat-icon {
-      font-size: 1.5em;
-    }
+    
   }
 
   & [mat-icon-button] {
@@ -79,9 +93,24 @@
     padding: 0.7em;
 
     touch-action: auto !important;
+  }
 
-    & > mat-icon {
-      font-size: 1.5em;
+  & [mat-raised-button] {
+    height: auto;
+
+    padding: 0.6em;
+
+    border-radius: 0.25em;
+  }
+
+  & [mat-flat-button] {
+
+  }
+
+  & .mat-button-toggle {
+
+    & > .mat-button-toggle-button {
+      cursor: inherit;
     }
   }
 
@@ -119,7 +148,7 @@
             padding-block: 0.6em;
             padding-inline: 0.9em;
 
-            cursor: default;
+            cursor: inherit;
       
             & > mat-icon {
               margin: 0;

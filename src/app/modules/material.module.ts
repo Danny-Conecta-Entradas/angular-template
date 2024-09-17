@@ -1,24 +1,5 @@
 import { inject, NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientModule } from '@angular/common/http'
 
-import { AppRoutingModule } from './app-routing.module'
-import { AppComponent } from './app.component'
-
-// Components
-import { BackButtonComponent } from 'src/app/components/back-button/back-button.component'
-import { FilePickerComponent } from 'src/app/components/file-picker/file-picker.component'
-import { GoogleSignInBtnComponent } from 'src/app/components/google-sign-in-btn/google-sign-in-btn.component'
-
-// Directives
-import { DelayedIfDirective } from 'src/app/directives/delayed-if.directive'
-import { ExactActiveRouterLinkDirective } from 'src/app/directives/exact-active-router-link.directive'
-import { InputDragoverFocusDirective } from 'src/app/directives/input-dragover-focus.directive'
-import { TypeButtonDirective } from 'src/app/directives/type-button.directive'
-
-// Material
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatBadgeModule } from '@angular/material/badge'
 import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet'
@@ -56,46 +37,87 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatTreeModule } from '@angular/material/tree'
 
-// Pages
-import { TemplateReferenceMainPage } from './pages/template-reference/main/main.page'
-import { MaterialModule } from 'src/app/modules/material.module'
-
 
 @NgModule({
-  declarations: [
-    AppComponent,
 
-    // Pages
-    TemplateReferenceMainPage,
+  declarations: [],
 
-    // Components
+  imports: [],
 
-    // Directives
+  exports: [
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    // MatCommonModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    // MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
 
-    HttpClientModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    MaterialModule,
-
-    // Standalone Components
-    BackButtonComponent,
-    FilePickerComponent,
-    GoogleSignInBtnComponent,
-
-    // Standalone Directives
-    DelayedIfDirective,
-    ExactActiveRouterLinkDirective,
-    InputDragoverFocusDirective,
-    TypeButtonDirective,
+  providers: [
+    // https://stackoverflow.com/questions/53684763/how-to-remove-space-bottom-mat-form-field
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+        appearance: 'outline',
+      },
+    },
+    {
+      provide: MAT_SELECT_CONFIG,
+      useValue: {
+        // panelWidth: null,
+      },
+    },
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+
 })
-export class AppModule {}
+export class MaterialModule {
+
+  static readonly dialog: MatDialog
+
+  static readonly bottomSheet: MatBottomSheet
+
+  static readonly snackBar: MatSnackBar
+
+  constructor() {
+    // @ts-ignore
+    MaterialModule.dialog = inject(MatDialog)
+
+    // @ts-ignore
+    MaterialModule.bottomSheet = inject(MatBottomSheet)
+
+    // @ts-ignore
+    MaterialModule.snackBar = inject(MatSnackBar)
+  }
+
+}

@@ -1,11 +1,11 @@
 import { Component, ElementRef, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { lastValueFrom } from 'rxjs'
+
+import { MaterialModule } from 'src/app/modules/material.module'
 import { MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-
-import { AppModule } from 'src/app/app.module'
 
 
 @Component({
@@ -52,7 +52,7 @@ type OpenSnackBarOptions = {
 }
 
 export function openSnackBar(options: OpenSnackBarOptions & Pick<MatSnackBarConfig, 'duration' | 'horizontalPosition' | 'verticalPosition'>) {
-  const snackBar = AppModule.snackBar
+  const snackBar = MaterialModule.snackBar
 
   const snackBarRef = snackBar.openFromComponent(SnackBarComponent, {
 

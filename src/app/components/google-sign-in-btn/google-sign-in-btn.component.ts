@@ -18,6 +18,9 @@ import AuthService from 'src/app/services/auth.service'
 })
 export class GoogleSignInBtnComponent implements AfterViewInit {
 
+  @Input()
+  disabled: boolean | string = false
+
   // @Input({alias: 'with-redirect'})
   // withRedirect = false
 

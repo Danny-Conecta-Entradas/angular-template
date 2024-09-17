@@ -6,7 +6,8 @@
     "dev-host": "ng serve --configuration=local --host=0.0.0.0",
     "build": "ng build --configuration=production",
     "build_dev": "ng build --configuration=development",
-    "build_test": "ng build --configuration=test"
+    "build_test": "ng build --configuration=test",
+    "serve_production": "ng serve --configuration=production" 
   },
   "private": true,
   "dependencies": {

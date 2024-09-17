@@ -8,93 +8,33 @@
   }
 }
 
-:host {
-  & :is([mat-button], [mat-icon-button], [mat-raised-button]):not([matSnackBarAction]) {
-    min-width: 0;
-    width: auto;
-    height: auto;
-  
-    display: grid;
-    place-items: center;
-  
-    padding: 0.5em;
-  
-    font-size: 1em;
-    font-weight: inherit;
-  
-    letter-spacing: normal;
-  
-    --mdc-text-button-label-text-color: inherit;
-
-    cursor: inherit;
-  
-    /* Color del ripple al hacer :hover */
-    /* --mat-mdc-button-persistent-ripple-color: #00000099;
-
-    --mat-mdc-button-ripple-color: rgba(0, 0, 0, 0.2); */
-  
-    &:where([mat-raised-button]) {
-      font-size: 1em;
-    }
-  
-    &:disabled {
-      cursor: not-allowed;
-      pointer-events: auto;
-  
-      --mat-mdc-button-persistent-ripple-color: transparent;
-    }
-  
-    & > * {
-      max-width: 100%;
-      max-height: 100%;
-    }
-  
-    & > .mat-mdc-button-persistent-ripple {
-      border-radius: inherit;
-  
-      &:is(:hover > &) {
-        &::before {
-          opacity: 0.3;
-        }
-      }
-    }
-  
-    & > span.mdc-button__label,
-    & > span.mat-mdc-focus-indicator,
-    & > span.mat-mdc-button-touch-target {
-      pointer-events: none;
-      user-select: none;
-    }
-  
-  }
-}
-
-
-button.btn.btn {
+.btn {
   display: flex;
   align-items: center;
   column-gap: 0.5em;
 
+  padding-block: 0.3em;
+
+  border: solid 2px currentColor;
+
   border-radius: 0.3em;
 
-  background-color: var(--complementary-bg);
-  color: inherit;
+  background-color: transparent;
 
-  &:where(:root.dark &) {
-    background-color: var(--main-bg);
+  &:disabled {
+    opacity: 0.7;
   }
 
-  border: solid 2px var(--main-text-color, currentColor);
-}
+  /* &:where(:root.dark &) {
+    background-color: var(--main-bg);
+  } */
 
-button.btn ::ng-deep > .mdc-button__label > .icon {
-  --size: 2em;
+  & > .mdc-button__label {
+    display: contents;
 
-  width: var(--size);
-  height: var(--size);
-}
-
-
-button.btn ::ng-deep > .mdc-button__label {
-  display: contents;
+    & > .icon {
+      width: 2em;
+      height: 2em;
+    }
+  }
 }

@@ -42,9 +42,10 @@
       padding-block: 1rem;
 
       font-size: unset;
+      font-weight: 400;
       line-height: unset;
 
-      cursor: default;
+      cursor: inherit;
 
       & > .mat-content {
         overflow: visible;
