@@ -1,6 +1,8 @@
 :where([data-apply-material-overrides]) {
 
   & .mat-mdc-checkbox {
+    display: flex;
+
     /* Unselected state */
     /* --mdc-checkbox-unselected-icon-color: ; */
     --mdc-checkbox-unselected-pressed-icon-color: var(--mdc-checkbox-unselected-focus-icon-color);
@@ -35,6 +37,10 @@
     }
 
     & > .mdc-form-field {
+      flex-grow: 1;
+
+      column-gap: 0.4em;
+
       font-size: unset;
       font-weight: unset;
 
@@ -74,6 +80,14 @@
       }
 
       & > label {
+        flex-grow: 1;
+
+        align-self: stretch;
+        display: grid;
+        align-items: center;
+
+        padding: 0;
+
         cursor: default;
       }
     }
@@ -87,6 +101,7 @@
   }
 
   & .mat-mdc-radio-button {
+    display: flex;
 
     &[class] {
       --mdc-radio-selected-icon-color: #396dc0;
@@ -96,6 +111,10 @@
     }
     
     & > .mdc-form-field {
+      flex-grow: 1;
+
+      column-gap: 0.4em;
+
       font-size: unset;
       font-weight: unset;
 
@@ -131,9 +150,14 @@
       }
 
       & > .mdc-label {
+        flex-grow: 1;
         align-self: stretch;
+        margin: 0;
+
         display: flex;
         align-items: center;
+
+        padding: 0;
       }
     }
   }
