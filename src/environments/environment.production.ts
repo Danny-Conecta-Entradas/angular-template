@@ -17,7 +17,7 @@ const firebaseStorage = getStorage(firebaseApp)
 
 
 const environment = {
-  apiRUL: '',
+  apiURL: '',
   firebaseConfig,
   firebaseApp,
   firebaseStorage,

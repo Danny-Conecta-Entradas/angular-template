@@ -9,6 +9,6 @@ export default class APIService {
 
   readonly #http = inject(HttpClient)
 
-  readonly apiURL = environment.apiRUL
+  readonly apiURL = environment.apiURL
 
 }
