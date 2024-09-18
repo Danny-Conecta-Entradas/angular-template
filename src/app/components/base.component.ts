@@ -53,109 +53,9 @@ export abstract class BaseComponent implements OnChanges, OnInit, DoCheck, After
    */
   readonly lifeCycleEvents = new LifeCycleEvents()
 
-  readonly templateUtils = new class TemplateUtils {
+  readonly templateUtils = templateUtils
 
-    preventLinkNavigationFromInnerElement(event: MouseEvent) {
-      event.preventDefault()
-      event.stopPropagation()
-    }
-
-    /**
-     * Prevent dragging on inner buttons of links
-     */
-    preventDragOnInnerElementOfLink(anchor: HTMLAnchorElement | MatAnchor, event: MouseEvent) {
-      const anchorElement = anchor instanceof HTMLAnchorElement ? anchor : (anchor._elementRef.nativeElement as HTMLAnchorElement)
-      anchorElement.draggable = false
-
-      if (anchor instanceof MatAnchor) {
-        anchor.disableRipple = true
-      }
-
-      const button = event.currentTarget as HTMLElement
-
-      // Prevent navigation when initiating click on innerButton
-      // but ending the click inside the anchor but outside the innerButton
-      const preventNavigationListener = (event: MouseEvent) => {
-        if (!event.isTrusted) {
-          return
-        }
-
-        if (event.composedPath().includes(button)) {
-          return
-        }
-
-        event.stopPropagation()
-        event.preventDefault()
-      }
-
-      anchorElement.addEventListener('click', preventNavigationListener, {capture: true})
-
-      const cleanUpClickListener = (event: MouseEvent) => {
-        if (!event.isTrusted) {
-          return
-        }
-
-        window.removeEventListener('click', cleanUpClickListener, {capture: true})
-
-        if (anchor instanceof MatAnchor) {
-          anchor.disableRipple = false
-        }
-
-        window.setTimeout(() => {
-          anchorElement.removeEventListener('click', preventNavigationListener, {capture: true})
-        })
-      }
-
-      window.addEventListener('click', cleanUpClickListener, {capture: true})
-
-      const cleanUpPointerUpListener = (event: MouseEvent) => {
-        if (!event.isTrusted) {
-          return
-        }
-
-        anchorElement.removeAttribute('draggable')
-
-        window.removeEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
-      }
-
-      window.addEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
-    }
-
-  }
-
-  readonly materialTemplateUtils = new class MaterialTemplateUtils {
-
-    /**
-     * 
-     */
-    matchMatMenuWidthToMenuTriggerWidth(menu: MatMenu, event: MouseEvent) {
-      const animationSubscription = menu._animationDone.subscribe((animationEvent) => {
-        if (animationEvent.toState === 'enter') {
-          animationSubscription.unsubscribe()
-          return
-        }
-
-        const menuElement = animationEvent.element as HTMLElement
-
-        const menuTrigger = event.currentTarget as HTMLElement
-
-        const resizeObserver = new ResizeObserver((entries) => {
-          menuElement.style.width = `${menuTrigger.offsetWidth}px`
-        })
-
-        resizeObserver.observe(menuTrigger)
-
-        const innerAnimationSubscription = menu._animationDone.subscribe((innerAnimationEvent) => {
-          if (innerAnimationEvent.toState === 'void') {
-            innerAnimationSubscription.unsubscribe()
-
-            resizeObserver.unobserve(menuTrigger)
-          }
-        })
-      })
-    }
-
-  }
+  readonly materialTemplateUtils = materialTemplateUtils
 
 }
 
@@ -184,5 +84,111 @@ class LifeCycleEvents {
    * DestroyRef: https://v16.angular.io/guide/lifecycle-hooks#destroyref
    */
   readonly onDestroy = new EventEmitter<void>()
+
+}
+
+
+const templateUtils = new class TemplateUtils {
+
+  preventLinkNavigationFromInnerElement(event: MouseEvent) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
+
+  /**
+   * Prevent dragging on inner buttons of links
+   */
+  preventDragOnInnerElementOfLink(anchor: HTMLAnchorElement | MatAnchor, event: MouseEvent) {
+    const anchorElement = anchor instanceof HTMLAnchorElement ? anchor : (anchor._elementRef.nativeElement as HTMLAnchorElement)
+    anchorElement.draggable = false
+
+    if (anchor instanceof MatAnchor) {
+      anchor.disableRipple = true
+    }
+
+    const button = event.currentTarget as HTMLElement
+
+    // Prevent navigation when initiating click on innerButton
+    // but ending the click inside the anchor but outside the innerButton
+    const preventNavigationListener = (event: MouseEvent) => {
+      if (!event.isTrusted) {
+        return
+      }
+
+      if (event.composedPath().includes(button)) {
+        return
+      }
+
+      event.stopPropagation()
+      event.preventDefault()
+    }
+
+    anchorElement.addEventListener('click', preventNavigationListener, {capture: true})
+
+    const cleanUpClickListener = (event: MouseEvent) => {
+      if (!event.isTrusted) {
+        return
+      }
+
+      window.removeEventListener('click', cleanUpClickListener, {capture: true})
+
+      if (anchor instanceof MatAnchor) {
+        anchor.disableRipple = false
+      }
+
+      window.setTimeout(() => {
+        anchorElement.removeEventListener('click', preventNavigationListener, {capture: true})
+      })
+    }
+
+    window.addEventListener('click', cleanUpClickListener, {capture: true})
+
+    const cleanUpPointerUpListener = (event: MouseEvent) => {
+      if (!event.isTrusted) {
+        return
+      }
+
+      anchorElement.removeAttribute('draggable')
+
+      window.removeEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
+    }
+
+    window.addEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
+  }
+
+}
+
+
+const materialTemplateUtils = new class MaterialTemplateUtils {
+
+  /**
+   * 
+   */
+  matchMatMenuWidthToMenuTriggerWidth(menu: MatMenu, event: MouseEvent) {
+    const animationSubscription = menu._animationDone.subscribe((animationEvent) => {
+      if (animationEvent.toState === 'enter') {
+        animationSubscription.unsubscribe()
+        return
+      }
+
+      const menuElement = animationEvent.element as HTMLElement
+
+      const menuTrigger = event.currentTarget as HTMLElement
+
+      const resizeObserver = new ResizeObserver((entries) => {
+        menuElement.style.width = `${menuTrigger.offsetWidth}px`
+      })
+
+      resizeObserver.observe(menuTrigger)
+
+      const innerAnimationSubscription = menu._animationDone.subscribe((innerAnimationEvent) => {
+        if (innerAnimationEvent.toState === 'void') {
+          innerAnimationSubscription.unsubscribe()
+
+          resizeObserver.unobserve(menuTrigger)
+        }
+      })
+    })
+  }
 
 }
