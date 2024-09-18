@@ -18,6 +18,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angula
 @Directive({
   standalone: true,
   selector: '[delayedIf]',
+  exportAs: 'delayedIf',
 })
 export class DelayedIfDirective {
 

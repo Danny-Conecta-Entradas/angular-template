@@ -22,6 +22,7 @@ import { TypeButtonDirective } from 'src/app/directives/type-button.directive'
 // Pages
 import { TemplateReferenceMainPage } from './pages/template-reference/main/main.page'
 import { MaterialModule } from 'src/app/modules/material.module'
+import { ElementRefDirective } from 'src/app/directives/element-ref.directive'
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { MaterialModule } from 'src/app/modules/material.module'
     InputDragoverFocusDirective,
     InputAutofillDirective,
     TypeButtonDirective,
+    ElementRefDirective,
   ],
   providers: [],
   bootstrap: [AppComponent],
