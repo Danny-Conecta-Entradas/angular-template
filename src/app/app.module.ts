@@ -20,7 +20,7 @@ import { InputAutofillDirective } from 'src/app/directives/input-autofill.direct
 import { TypeButtonDirective } from 'src/app/directives/type-button.directive'
 
 // Pages
-import { TemplateReferenceMainPage } from './pages/template-reference/main/main.page'
+import { TemplateReferenceMainPage } from './pages/template-reference/main/template-reference-main.page'
 import { MaterialModule } from 'src/app/modules/material.module'
 import { ElementRefDirective } from 'src/app/directives/element-ref.directive'
 import MultiRoutePage from 'src/app/pages/template-reference/multi-route-page/multi-route.page'

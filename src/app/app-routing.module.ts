@@ -1,6 +1,6 @@
 import { inject, NgModule } from '@angular/core'
 import { CanActivateFn, Router, RouterModule, Routes } from '@angular/router'
-import { TemplateReferenceMainPage } from 'src/app/pages/template-reference/main/main.page'
+import { TemplateReferenceMainPage } from 'src/app/pages/template-reference/main/template-reference-main.page'
 import MultiRoutePage from 'src/app/pages/template-reference/multi-route-page/multi-route.page'
 
 import AuthService from 'src/app/services/auth.service'

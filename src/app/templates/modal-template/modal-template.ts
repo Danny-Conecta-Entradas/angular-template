@@ -3,16 +3,16 @@ import { AfterViewInit, Component, ElementRef, inject, Optional } from '@angular
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { lastValueFrom } from 'rxjs'
 
-import { MaterialModule } from 'src/app/modules/material.module'
 import { MatButtonModule } from '@angular/material/button'
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet'
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { AppComponent } from 'src/app/app.component'
 
 
 /*********************************************************/
@@ -156,7 +156,7 @@ type ModalOptions = {
 
 export async function openModalTemplate(options?: ModalOptions) {
   if (options?.asBottomSheet) {
-    const bottomSheet = MaterialModule.bottomSheet
+    const bottomSheet = AppComponent.injectWithContext(MatBottomSheet)
 
     const bottomSheetRef = bottomSheet.open<ModalComponent, ModalOptions, ModalResult>(ModalTemplate, {
       data: options,
@@ -169,7 +169,7 @@ export async function openModalTemplate(options?: ModalOptions) {
     return bottomSheetResult
   }
 
-  const dialog = MaterialModule.dialog
+  const dialog = AppComponent.injectWithContext(MatDialog)
 
   const dialogRef = dialog.open<ModalComponent, ModalOptions, ModalResult>(ModalTemplate, {
     data: options,

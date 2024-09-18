@@ -3,6 +3,7 @@
   & .mat-mdc-button-base {
     /* min-width: max-content; */
 
+    width: auto;
     height: auto;
     
     display: flex;
@@ -15,6 +16,8 @@
 
     line-height: unset;
 
+    touch-action: auto !important;
+
     &:disabled {
       pointer-events: auto;
       cursor: not-allowed;
@@ -26,6 +29,10 @@
       display: flex;
       align-items: center;
       column-gap: 0.5em;
+
+      &:empty {
+        display: none;
+      }
     }
 
     & > :is(
@@ -95,8 +102,6 @@
     /* place-content: center; */
 
     padding: 0.7em;
-
-    touch-action: auto !important;
   }
 
   & [mat-raised-button] {
@@ -108,7 +113,20 @@
   }
 
   & [mat-flat-button] {
+    background-color: var(--primary-bg);
+  }
 
+  & [mat-fab] {
+    padding: 0.8em;
+  }
+
+  & [mat-mini-fab] {
+    background-color: var(--primary-bg);
+    
+    & > .mat-icon {
+      font-size: 1.3em;
+      line-height: 1.1;
+    }
   }
 
   & .mat-button-toggle-group {

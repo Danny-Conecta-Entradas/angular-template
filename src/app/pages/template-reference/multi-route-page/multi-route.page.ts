@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core'
+import { ApplicationRef, Component, createComponent, EnvironmentInjector, inject, ViewContainerRef } from '@angular/core'
 import { NavigationEnd, Router } from '@angular/router'
 import { BaseComponent } from 'src/app/components/base.component'
+import { TemplateReferenceMainPage } from 'src/app/pages/template-reference/main/template-reference-main.page'
 
 
 @Component({
@@ -24,7 +25,30 @@ export default class MultiRoutePage extends BaseComponent {
 
       console.log(`MultiRoutePage Navigation to`, this.router.url)
     })
+
+    const applicationRef = inject(ApplicationRef)
+
+    const componentRef = createComponent(TemplateReferenceMainPage, {
+      environmentInjector: applicationRef.injector,
+    })
+
+    console.log(componentRef, componentRef.location.nativeElement)
+
+    applicationRef.attachView(componentRef.hostView)
+
+    const appRoot = document.body.querySelector('app-root')
+    appRoot!.append(componentRef.location.nativeElement)
+
+    this.lifeCycleEvents.onInit.subscribe(() => {
+      // const componentRef = this.#viewContainerRef.createComponent(TemplateReferenceMainPage)
+
+      // componentRef.location.nativeElement.remove()
+
+      // console.log(componentRef)
+    })
   }
+
+  readonly #viewContainerRef = inject(ViewContainerRef)
 
   readonly router = inject(Router)
 

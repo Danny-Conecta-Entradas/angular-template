@@ -11,9 +11,9 @@ import { openModalTemplate } from 'src/app/templates/modal-template/modal-templa
     'data-page-component': '',
   },
 
-  selector: 'page-main',
-  templateUrl: './main.page.html',
-  styleUrls: ['./main.page.css'],
+  selector: 'template-reference-main-page',
+  templateUrl: './template-reference-main.page.html',
+  styleUrls: ['./template-reference-main.page.css'],
 })
 export class TemplateReferenceMainPage extends BaseComponent {
 

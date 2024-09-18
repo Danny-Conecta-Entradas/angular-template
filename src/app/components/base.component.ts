@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit } from '@angular/core'
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core'
 import { MatAnchor } from '@angular/material/button'
 import { MatMenu } from '@angular/material/menu'
 
@@ -8,7 +8,7 @@ import { MatMenu } from '@angular/material/menu'
   selector: '',
   template: '',
 })
-export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit {
+export abstract class BaseComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
 
   constructor() {
     if (new.target === BaseComponent) {
@@ -16,18 +16,41 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.lifeCycleEvents.onChanges.emit(changes)
+  }
+
   ngOnInit() {
     this.lifeCycleEvents.onInit.emit()
+  }
+
+  ngDoCheck() {
+    this.lifeCycleEvents.onDoCheck.emit()
+  }
+
+  ngAfterContentInit() {
+    this.lifeCycleEvents.afterContentInit.emit()
+  }
+
+  ngAfterContentChecked(){
+    this.lifeCycleEvents.afterContentChecked.emit()
   }
 
   ngAfterViewInit() {
     this.lifeCycleEvents.afterViewInit.emit()
   }
 
+  ngAfterViewChecked() {
+    this.lifeCycleEvents.afterViewChecked.emit()
+  }
+
   ngOnDestroy() {
     this.lifeCycleEvents.onDestroy.emit()
   }
 
+  /**
+   * Handle lyfecycle hooks of the component as events
+   */
   readonly lifeCycleEvents = new LifeCycleEvents()
 
   readonly templateUtils = new class TemplateUtils {
@@ -136,13 +159,30 @@ export abstract class BaseComponent implements OnDestroy, AfterViewInit, OnInit 
 
 }
 
-
+/**
+ * Class to handle lyfecycle hooks of components as events.
+ * Docs: https://v16.angular.io/guide/lifecycle-hooks
+ */
 class LifeCycleEvents {
+
+  readonly onChanges = new EventEmitter<SimpleChanges>()
 
   readonly onInit = new EventEmitter<void>()
 
+  readonly onDoCheck = new EventEmitter<void>()
+
+  readonly afterContentInit = new EventEmitter<void>()
+
+  readonly afterContentChecked = new EventEmitter<void>()
+
   readonly afterViewInit = new EventEmitter<void>()
 
+  readonly afterViewChecked = new EventEmitter<void>()
+
+  /**
+   * There is an alternative to ngOnDestroy() to perform clean up.
+   * DestroyRef: https://v16.angular.io/guide/lifecycle-hooks#destroyref
+   */
   readonly onDestroy = new EventEmitter<void>()
 
 }

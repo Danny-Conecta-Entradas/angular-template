@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay'
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core'
+import { AfterViewInit, ApplicationRef, Component, ElementRef, inject, OnInit, ProviderToken, runInInjectionContext, ViewContainerRef } from '@angular/core'
 import { MatAnchor } from '@angular/material/button'
 import { NavigationEnd, Router } from '@angular/router'
 
@@ -14,7 +14,7 @@ import AuthService from 'src/app/services/auth.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
 
   constructor() {
     // TODO: Uncomment when Firebase config is set up
@@ -23,10 +23,26 @@ export class AppComponent implements AfterViewInit {
     this.#restoreScrollOnNavigation()
 
     this.#moveGlobalStylesToTheBottom()
+
+    // @ts-ignore
+    AppComponent.applicationRef = inject(ApplicationRef)
   }
 
-  @ViewChild('hidden_mat_anchor')
-  readonly hiddenMatAnchor!: MatAnchor
+  static readonly applicationRef: ApplicationRef
+
+  /**
+   * Method to inject dependencies outside of a dependency injection context.  
+   * Docs: https://v17.angular.io/guide/dependency-injection-context#run-within-an-injection-context
+   */
+  static injectWithContext<T>(token: ProviderToken<T>) {
+    let injectionValue!: T
+
+    runInInjectionContext(this.applicationRef.injector, () => {
+      injectionValue = inject(token)
+    })
+
+    return injectionValue
+  }
 
   readonly #authService = inject(AuthService)
 
@@ -44,11 +60,13 @@ export class AppComponent implements AfterViewInit {
     return this.#isUserLogged
   }
 
-  ngAfterViewInit() {
-    // Force click on the hidden MatAnchor to avoid bug
-    // on mobile that prevents the ripple effect to work in the 1st interaction
-    this.hiddenMatAnchor._elementRef.nativeElement.click()
+  readonly #viewContainerRef = inject(ViewContainerRef)
 
+  ngOnInit() {
+    this.#fixMatAnchorInteractionOnMobile()
+  }
+
+  ngAfterViewInit() {
     this.#removeRouterOutlet()
 
     this.#modifyBackdropStructureToBeAbleToHaveOwnScrollingForEachModal()
@@ -84,6 +102,18 @@ export class AppComponent implements AfterViewInit {
   }
 
   /**
+   * Create and add a hidden MatAnchor to the document
+   * to avoid bug on mobile that prevents the ripple effect to work in the 1st interaction.
+   */
+  #fixMatAnchorInteractionOnMobile() {
+    const matAnchor = this.#viewContainerRef.createComponent(MatAnchor)
+    const element = matAnchor.instance._elementRef.nativeElement as HTMLAnchorElement
+    element.hidden = true
+
+    element.click()
+  }
+
+  /**
    * Move global stylesheet to the bottom to have priority from styles from other components.
    */
   #moveGlobalStylesToTheBottom() {
@@ -104,11 +134,14 @@ export class AppComponent implements AfterViewInit {
       `.mat-mdc-icon-button.mat-mdc-button-base`,
       `.mat-mdc-raised-button:not(:disabled)`,
       `.mat-mdc-raised-button.mdc-ripple-upgraded--background-focused, .mat-mdc-raised-button:not(.mdc-ripple-upgraded):focus`,
+      `.mdc-fab:hover`,
       (rule) => {
         if (
           rule.selectorText !== '.mdc-button'
           && rule.selectorText !== '.mat-mdc-button'
           && rule.selectorText !== '.mdc-icon-button'
+          && rule.selectorText !== '.mdc-fab'
+          && rule.selectorText !== '.mdc-fab:active, .mdc-fab:focus'
         ) {
           return
         }
