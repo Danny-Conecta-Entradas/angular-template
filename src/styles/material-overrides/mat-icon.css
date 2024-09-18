@@ -12,7 +12,11 @@
 
     font-size: 1.5em;
 
-    line-height: initial;
+    /*
+      The default value "normal" depends on the User Agent and may not look the same.
+      To fix that, we have to specify a value.
+    */
+    line-height: 1;
   }
 
 }

@@ -64,6 +64,10 @@
         display: flex;
 
         & > .mdc-notched-outline {
+          /*
+            Important to avoid the background of the `outline` <mat-form-field> to overlap the input
+          */
+          z-index: 0;
 
           & > .mdc-notched-outline__leading {
             width: 0.75em;
