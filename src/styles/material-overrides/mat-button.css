@@ -113,7 +113,15 @@
   }
 
   & [mat-flat-button] {
+    
+  }
+
+  & :is([mat-fab], [mat-mini-fab]) {
     background-color: var(--primary-bg);
+
+    &:disabled {
+      background-color: color-mix(in oklab, var(--primary-bg) 100%, #222 20%);
+    }
   }
 
   & [mat-fab] {
@@ -121,8 +129,6 @@
   }
 
   & [mat-mini-fab] {
-    background-color: var(--primary-bg);
-    
     & > .mat-icon {
       font-size: 1.3em;
       line-height: 1.1;

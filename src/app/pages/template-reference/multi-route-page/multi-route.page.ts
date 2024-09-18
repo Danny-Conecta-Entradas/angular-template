@@ -26,29 +26,23 @@ export default class MultiRoutePage extends BaseComponent {
       console.log(`MultiRoutePage Navigation to`, this.router.url)
     })
 
-    const applicationRef = inject(ApplicationRef)
+    /*
+      Code to create component programatically
+    */
 
-    const componentRef = createComponent(TemplateReferenceMainPage, {
-      environmentInjector: applicationRef.injector,
-    })
+    // const applicationRef = inject(ApplicationRef)
 
-    console.log(componentRef, componentRef.location.nativeElement)
+    // const componentRef = createComponent(TemplateReferenceMainPage, {
+    //   environmentInjector: applicationRef.injector,
+    // })
 
-    applicationRef.attachView(componentRef.hostView)
+    // console.log(componentRef, componentRef.location.nativeElement)
 
-    const appRoot = document.body.querySelector('app-root')
-    appRoot!.append(componentRef.location.nativeElement)
+    // applicationRef.attachView(componentRef.hostView)
 
-    this.lifeCycleEvents.onInit.subscribe(() => {
-      // const componentRef = this.#viewContainerRef.createComponent(TemplateReferenceMainPage)
-
-      // componentRef.location.nativeElement.remove()
-
-      // console.log(componentRef)
-    })
+    // const appRoot = document.body.querySelector('app-root')
+    // appRoot!.append(componentRef.location.nativeElement)
   }
-
-  readonly #viewContainerRef = inject(ViewContainerRef)
 
   readonly router = inject(Router)
 
