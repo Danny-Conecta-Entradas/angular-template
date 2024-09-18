@@ -17,10 +17,27 @@ const firebaseStorage = getStorage(firebaseApp)
 
 
 const environment = {
+
+  // Booleans to identify the current environment
+
+  isLocal: false as boolean,
+
+  isDevelopment: false as boolean,
+
+  isTest: false as boolean,
+
+  isProduction: true as boolean,
+
+  // General environment settings
+
   apiURL: '',
+
   firebaseConfig,
+
   firebaseApp,
+
   firebaseStorage,
+
 } as const
 
 export default environment
