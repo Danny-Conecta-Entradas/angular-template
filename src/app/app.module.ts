@@ -23,14 +23,16 @@ import { TypeButtonDirective } from 'src/app/directives/type-button.directive'
 import { TemplateReferenceMainPage } from './pages/template-reference/main/main.page'
 import { MaterialModule } from 'src/app/modules/material.module'
 import { ElementRefDirective } from 'src/app/directives/element-ref.directive'
+import MultiRoutePage from 'src/app/pages/template-reference/multi-route-page/multi-route.page'
 
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    // Pages
+    // Pages (Pages need to be declared to be able to access the `app.module` Modules)
     TemplateReferenceMainPage,
+    MultiRoutePage,
 
     // Components
 

@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  padding: 1rem;
+}
+
+
+.content {
+  padding: 1rem;
+
+
+  font-size: 1.4rem;
+  text-align: center;
+}

@@ -34,7 +34,7 @@ export class InputAutofillDirective implements OnInit {
       window.setTimeout(() => {
         target.value = target.value + '_'
         target.value = target.value.slice(0, -1)
-  
+
         target.dataset['autofill'] = String(true)
       })
     })

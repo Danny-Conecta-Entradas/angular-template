@@ -1,1 +1,11 @@
 <router-outlet />
+
+<a
+    #hidden_mat_anchor
+    mat-button
+    style="display: none !important;"
+>
+    Hidden MatAnchor to avoid bug on mobile with the ripple effect that doesn't trigger initially.
+    In order to work, the link needs to exists for the whole lifetime of the application
+    and needs a click event to be dispatched.
+</a>

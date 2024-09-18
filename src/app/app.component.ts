@@ -1,5 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay'
-import { AfterViewInit, Component, ElementRef, inject } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core'
+import { MatAnchor } from '@angular/material/button'
 import { NavigationEnd, Router } from '@angular/router'
 
 import AuthService from 'src/app/services/auth.service'
@@ -24,6 +25,9 @@ export class AppComponent implements AfterViewInit {
     this.#moveGlobalStylesToTheBottom()
   }
 
+  @ViewChild('hidden_mat_anchor')
+  readonly hiddenMatAnchor!: MatAnchor
+
   readonly #authService = inject(AuthService)
 
   readonly #router = inject(Router)
@@ -41,6 +45,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // Force click on the hidden MatAnchor to avoid bug
+    // on mobile that prevents the ripple effect to work in the 1st interaction
+    this.hiddenMatAnchor._elementRef.nativeElement.click()
+
     this.#removeRouterOutlet()
 
     this.#modifyBackdropStructureToBeAbleToHaveOwnScrollingForEachModal()
@@ -149,7 +157,7 @@ export class AppComponent implements AfterViewInit {
     // reflects stylesheets that were re-appended to the document (which happens when calling the method `#moveGlobalStylesToTheBottom()` at the start)
     // So we need to wait and remove the styles after that.
     if (isSafariMac()) {
-      window.setTimeout(() => removeStyles())
+      window.setTimeout(() => removeStyles(), 0)
     }
 
     // @ts-ignore

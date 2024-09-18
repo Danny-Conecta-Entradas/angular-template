@@ -1,0 +1,22 @@
+<a
+    *ngIf="isPage1()"
+    mat-button
+    routerLink="/template-reference/multi-route-two"
+>
+    <mat-icon>link</mat-icon>
+    2. Go to multi-route-two
+</a>
+
+<a
+    *ngIf="isPage2()"
+    mat-button
+    routerLink="/template-reference/multi-route-one"
+>
+    <mat-icon>link</mat-icon>
+    1. Go to multi-route-one
+</a>
+
+
+<div class="content">
+    Component for multiple pages that is not recreated on every navigation
+</div>
