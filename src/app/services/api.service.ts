@@ -50,6 +50,11 @@ export default class APIService {
     const url = new URL(`/${this.#apiPrefix}/${entityPath}`, this.apiURL)
 
     for (const [key, value] of Object.entries(params)) {
+      // Dont't add nullable values
+      if (value == null) {
+        continue
+      }
+
       url.searchParams.set(key, String(value))
     }
 
