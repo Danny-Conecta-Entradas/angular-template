@@ -196,6 +196,12 @@ const materialTemplateUtils = new class MaterialTemplateUtils {
         return
       }
 
+      // In the rare case the button that opens the menu
+      // is clicked too fast several times,
+      // it sometimes appears miss aligned from the button.
+      // This can be solved by dispatching a 'resize' event on `window`
+      window.dispatchEvent(new Event('resize'))
+
       const menuElement = animationEvent.element as HTMLElement
 
       const resizeObserver = new ResizeObserver((entries) => {
