@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { lastValueFrom } from 'rxjs'
+import { Observable } from 'rxjs'
 
 import environment from 'src/environments/environment'
 import AuthService from 'src/app/services/auth.service'
@@ -8,6 +8,14 @@ import AuthService from 'src/app/services/auth.service'
 
 type URLParams = {
   [key: string]: unknown
+}
+
+type RequestOptions = {
+
+  params?: URLParams
+
+  signal?: AbortSignal
+
 }
 
 type API_GET_Collection_Response<T = unknown> = Readonly<{
@@ -38,8 +46,13 @@ export default class APIService {
 
   readonly #apiPrefix = 'api'
 
-  async #getEntity<T = unknown>(entityPath: string, params?: URLParams) {
-    params ??= {}
+  async #getEntity<T = unknown>(entityPath: string, options?: RequestOptions) {
+    options ??= {}
+    options.params ??= {}
+
+    if (options.signal != null && options.signal.aborted) {
+      throw new Error(`Cannot use an already aborted AbortSignal to abort the request.`)
+    }
 
     // const idToken = await this.#authService.getIdToken()
 
@@ -49,7 +62,7 @@ export default class APIService {
 
     const url = new URL(`/${this.#apiPrefix}/${entityPath}`, this.apiURL)
 
-    for (const [key, value] of Object.entries(params)) {
+    for (const [key, value] of Object.entries(options.params)) {
       // Dont't add nullable values
       if (value == null) {
         continue
@@ -58,26 +71,60 @@ export default class APIService {
       url.searchParams.set(key, String(value))
     }
 
-    const data = await lastValueFrom(
-      this.#http.get(url.toString(), {
-        // headers: {
-        //   'Authorization': `Bearer ${idToken}`,
-        // },
-      })
-    ) as T
+    // Create request
+    const requestObservable = this.#http.get(url.toString(), {
+      // headers: {
+      //   'Authorization': `Bearer ${idToken}`,
+      // },
+    }) as Observable<T>
 
-    return data
+    return new Promise<T>((resolve, reject) => {
+      // Send request
+      const subscription = requestObservable.subscribe({
+        next: (data) => {
+          resolve(data)
+        },
+        error: (reason) => {
+          reject(reason)
+        },
+      })
+
+      if (options!.signal) {
+        options!.signal.addEventListener('abort', event => {
+          if (!event.isTrusted) {
+            return
+          }
+
+          // Cancel request
+          subscription.unsubscribe()
+
+          reject(options!.signal!.reason)
+        })
+      }
+    })
   }
 
-  async #getAllEntities<T = unknown>(entityPath: string, params?: URLParams) {
-    params ??= {}
+  async #getAllEntities<T = unknown>(entityPath: string, options?: RequestOptions) {
+    options ??= {}
+    options.params ??= {}
 
-    const response = await this.#getEntity<API_GET_Collection_Response<T>>(entityPath, params)
+    if (!Object.hasOwn(options.params, 'limit')) {
+      options.params['limit'] = 5000
+    }
+
+    const response = await this.#getEntity<API_GET_Collection_Response<T>>(entityPath, options)
 
     return response
   }
 
-  async #postEntity<T = never>(entityPath: string, body: T) {
+  async #postEntity(entityPath: string, body: unknown, options?: RequestOptions) {
+    options ??= {}
+    options.params ??= {}
+
+    if (options.signal != null && options.signal.aborted) {
+      throw new Error(`Cannot use an already aborted AbortSignal to abort the request.`)
+    }
+    
     // const idToken = await this.#authService.getIdToken()
 
     // if (idToken == null) {
@@ -86,57 +133,162 @@ export default class APIService {
 
     const url = new URL(`/${this.#apiPrefix}/${entityPath}`, this.apiURL)
 
-    return await lastValueFrom(
-      this.#http.post(url.toString(), body, {
-        // headers: {
-        //   'Authorization': `Bearer ${idToken}`,
-        // },
-      })
-    )
-  }
+    for (const [key, value] of Object.entries(options.params)) {
+      // Dont't add nullable values
+      if (value == null) {
+        continue
+      }
 
-  async #putEntity<T = never>(entityPath: string, id: string, body: T) {
-    // const idToken = await this.#authService.getIdToken()
-
-    // if (idToken == null) {
-    //   throw new Error(`Cannot do requests with a null IdToken`)
-    // }
-
-    const url = new URL(`/${this.#apiPrefix}/${entityPath}/${id}`, this.apiURL)
-
-    return await lastValueFrom(
-      this.#http.put(url.toString(), body, {
-        // headers: {
-        //   'Authorization': `Bearer ${idToken}`,
-        // },
-      })
-    )
-  }
-
-  async #deleteEntity(entityPath: string, params?: URLParams) {
-    params ??= {}
-
-    // const idToken = await this.#authService.getIdToken()
-
-    // if (idToken == null) {
-    //   throw new Error(`Cannot do requests with a null IdToken`)
-    // }
-
-    const url = new URL(`/${this.#apiPrefix}/${entityPath}`, this.apiURL)
-
-    for (const [key, value] of Object.entries(params)) {
       url.searchParams.set(key, String(value))
     }
 
-    const data = await lastValueFrom(
-      this.#http.delete(url.toString(), {
-        // headers: {
-        //   'Authorization': `Bearer ${idToken}`,
-        // },
-      })
-    )
+    // Create request
+    const requestObservable = this.#http.post(url.toString(), body, {
+      // headers: {
+      //   'Authorization': `Bearer ${idToken}`,
+      // },
+    })
 
-    return data
+    return new Promise<Object>((resolve, reject) => {
+      // Send request
+      const subscription = requestObservable.subscribe({
+        next: (data) => {
+          resolve(data)
+        },
+        error: (reason) => {
+          reject(reason)
+        },
+      })
+
+      if (options!.signal) {
+        options!.signal.addEventListener('abort', event => {
+          if (!event.isTrusted) {
+            return
+          }
+
+          // Cancel request
+          subscription.unsubscribe()
+
+          reject(options!.signal!.reason)
+        })
+      }
+    })
+  }
+
+  async #putEntity(entityPath: string, body: unknown, options?: RequestOptions) {
+    options ??= {}
+    options.params ??= {}
+
+    if (options.signal != null && options.signal.aborted) {
+      throw new Error(`Cannot use an already aborted AbortSignal to abort the request.`)
+    }
+
+    // const idToken = await this.#authService.getIdToken()
+
+    // if (idToken == null) {
+    //   throw new Error(`Cannot do requests with a null IdToken`)
+    // }
+
+    const url = new URL(`/${this.#apiPrefix}/${entityPath}`, this.apiURL)
+
+    for (const [key, value] of Object.entries(options.params)) {
+      // Dont't add nullable values
+      if (value == null) {
+        continue
+      }
+
+      url.searchParams.set(key, String(value))
+    }
+
+    // Create request
+    const requestObservable = this.#http.put(url.toString(), body, {
+      // headers: {
+      //   'Authorization': `Bearer ${idToken}`,
+      // },
+    })
+
+    return new Promise<Object>((resolve, reject) => {
+      // Send request
+      const subscription = requestObservable.subscribe({
+        next: (data) => {
+          resolve(data)
+        },
+        error: (reason) => {
+          reject(reason)
+        },
+      })
+
+      if (options!.signal) {
+        options!.signal.addEventListener('abort', event => {
+          if (!event.isTrusted) {
+            return
+          }
+
+          // Cancel request
+          subscription.unsubscribe()
+
+          reject(options!.signal!.reason)
+        })
+      }
+    })
+  }
+
+  async #deleteEntity(entityPath: string, options?: RequestOptions) {
+    options ??= {}
+    options.params ??= {}
+
+    if (options.signal != null && options.signal.aborted) {
+      throw new Error(`Cannot use an already aborted AbortSignal to abort the request.`)
+    }
+
+    // const idToken = await this.#authService.getIdToken()
+
+    // if (idToken == null) {
+    //   throw new Error(`Cannot do requests with a null IdToken`)
+    // }
+
+    const url = new URL(`/${this.#apiPrefix}/${entityPath}`, this.apiURL)
+
+    for (const [key, value] of Object.entries(options.params)) {
+      // Dont't add nullable values
+      if (value == null) {
+        continue
+      }
+
+      url.searchParams.set(key, String(value))
+    }
+
+    // Create request
+    const requestObservable = this.#http.delete(url.toString(), {
+      // headers: {
+      //   'Authorization': `Bearer ${idToken}`,
+      // },
+    })
+
+    return new Promise<Object>((resolve, reject) => {
+      // Send request
+      const subscription = requestObservable.subscribe({
+        next: (data) => {
+          resolve(data)
+        },
+        error: (reason) => {
+          reject(reason)
+        },
+      })
+
+      if (options!.signal) {
+        options!.signal.addEventListener('abort', event => {
+          if (!event.isTrusted) {
+            return
+          }
+
+          // Cancel request
+          subscription.unsubscribe()
+
+          reject(options!.signal!.reason)
+        })
+      }
+    })
   }
 
 }
