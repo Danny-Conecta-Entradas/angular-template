@@ -42,7 +42,7 @@ export class DelayedIfDirective {
           () => {
             this.#viewContainerRef.createEmbeddedView(this.#templateRef)
           },
-          this.#entryDelayTimeoutId
+          this.entryTimeout,
         )
       }
       else {
@@ -59,7 +59,7 @@ export class DelayedIfDirective {
         () => {
           this.#viewContainerRef.clear()
         },
-        this.exitTimeout
+        this.exitTimeout,
       )
     }
     else {
