@@ -60,13 +60,23 @@
     }
 
     @media (hover: hover) {
-      &:hover:where(:not(:disabled):not(:has(button:hover))) {
+      &:hover:where(:not(:disabled):not(:has(button:is(:hover, :active)))) {
   
         & > .mat-mdc-button-persistent-ripple {
   
           &::before {
             opacity: 0.12;
           }
+        }
+      }
+    }
+
+    &:active:where(:not(:disabled):not(:has(button:is(:hover, :active)))) {
+  
+      & > .mat-mdc-button-persistent-ripple {
+
+        &::before {
+          opacity: 0.12;
         }
       }
     }

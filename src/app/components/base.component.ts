@@ -65,6 +65,11 @@ export abstract class BaseComponent implements OnChanges, OnInit, DoCheck, After
  */
 class LifeCycleEvents {
 
+  static {
+    Object.defineProperty(this.prototype, Symbol.toStringTag, {value: `${this.name}Prototype`})
+    Object.setPrototypeOf(this.prototype, null)
+  }
+
   readonly onChanges = new EventEmitter<SimpleChanges>()
 
   readonly onInit = new EventEmitter<void>()
@@ -85,10 +90,19 @@ class LifeCycleEvents {
    */
   readonly onDestroy = new EventEmitter<void>()
 
+  static {
+    Object.freeze(this)
+  }
+
 }
 
 
 const templateUtils = new class TemplateUtils {
+
+  static {
+    Object.defineProperty(this.prototype, Symbol.toStringTag, {value: `${this.name}Prototype`})
+    Object.setPrototypeOf(this.prototype, null)
+  }
 
   preventLinkNavigationFromInnerElement(event: MouseEvent) {
     event.preventDefault()
@@ -156,10 +170,19 @@ const templateUtils = new class TemplateUtils {
     window.addEventListener('pointerup', cleanUpPointerUpListener, {capture: true})
   }
 
+  static {
+    Object.freeze(this)
+  }
+
 }
 
 
 const materialTemplateUtils = new class MaterialTemplateUtils {
+
+  static {
+    Object.defineProperty(this.prototype, Symbol.toStringTag, {value: `${this.name}Prototype`})
+    Object.setPrototypeOf(this.prototype, null)
+  }
 
   /**
    * 
@@ -189,6 +212,10 @@ const materialTemplateUtils = new class MaterialTemplateUtils {
         }
       })
     })
+  }
+
+  static {
+    Object.freeze(this)
   }
 
 }
