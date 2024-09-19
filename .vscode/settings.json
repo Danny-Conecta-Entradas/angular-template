@@ -1,3 +1,10 @@
 {
+  // Use Typescript version installed in this workspace
   "typescript.tsdk": "node_modules/typescript/lib",
+
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    // Only autocomplete `/src/environments/environment.ts` environment file to avoid
+    // accidentally importing the other versions since they are used for file replacement in `/angular.json`
+    "src/environments/environment.*.ts",
+  ],
 }
