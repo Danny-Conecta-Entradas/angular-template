@@ -32,7 +32,7 @@ export abstract class BaseComponent implements OnChanges, OnInit, DoCheck, After
     this.lifeCycleEvents.afterContentInit.emit()
   }
 
-  ngAfterContentChecked(){
+  ngAfterContentChecked() {
     this.lifeCycleEvents.afterContentChecked.emit()
   }
 
