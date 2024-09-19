@@ -187,8 +187,10 @@ const materialTemplateUtils = new class MaterialTemplateUtils {
   /**
    * 
    */
-  matchMatMenuWidthToMenuTriggerWidth(menu: MatMenu, event: MouseEvent) {
-    const animationSubscription = menu._animationDone.subscribe((animationEvent) => {
+  matchMatMenuWidthToMenuTriggerWidth(matMenu: MatMenu, event: MouseEvent) {
+    const menuTrigger = event.currentTarget as HTMLElement
+
+    const animationSubscription = matMenu._animationDone.subscribe((animationEvent) => {
       if (animationEvent.toState === 'enter') {
         animationSubscription.unsubscribe()
         return
@@ -196,20 +198,16 @@ const materialTemplateUtils = new class MaterialTemplateUtils {
 
       const menuElement = animationEvent.element as HTMLElement
 
-      const menuTrigger = event.currentTarget as HTMLElement
-
       const resizeObserver = new ResizeObserver((entries) => {
         menuElement.style.width = `${menuTrigger.offsetWidth}px`
       })
 
       resizeObserver.observe(menuTrigger)
 
-      const innerAnimationSubscription = menu._animationDone.subscribe((innerAnimationEvent) => {
-        if (innerAnimationEvent.toState === 'void') {
-          innerAnimationSubscription.unsubscribe()
+      const closedSubscription = matMenu.closed.subscribe(() => {
+        closedSubscription.unsubscribe()
 
-          resizeObserver.unobserve(menuTrigger)
-        }
+        resizeObserver.unobserve(menuTrigger)
       })
     })
   }

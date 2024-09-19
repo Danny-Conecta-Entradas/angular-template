@@ -126,6 +126,10 @@
     
   }
 
+  & [mat-stroked-button] {
+    
+  }
+
   & :is([mat-fab], [mat-mini-fab]) {
     background-color: var(--primary-bg);
 
