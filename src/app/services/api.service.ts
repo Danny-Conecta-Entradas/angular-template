@@ -65,6 +65,8 @@ export default class APIService {
   }
 
   async #getAllEntities<T = unknown>(entityPath: string, params?: URLParams) {
+    params ??= {}
+
     const response = await this.#getEntity<API_GET_Collection_Response<T>>(entityPath, params)
 
     return response
