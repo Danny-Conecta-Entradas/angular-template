@@ -160,6 +160,8 @@ export class AppComponent implements AfterViewInit, OnInit {
       // MatIcon
       // `.mat-mdc-form-field-icon-prefix > .mat-icon, .mat-mdc-form-field-icon-suffix > .mat-icon`,
 
+      `.mat-mdc-radio-button .mdc-radio:hover .mdc-radio__native-control:not([disabled]):not(:focus) ~ .mdc-radio__background::before`,
+
       // MatExpansionPanel
       `.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled="true"]):hover`,
       `.mat-accordion .mat-expansion-panel:not(.mat-expanded), .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing)`,
