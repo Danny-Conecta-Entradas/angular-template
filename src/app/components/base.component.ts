@@ -57,6 +57,8 @@ export abstract class BaseComponent implements OnChanges, OnInit, DoCheck, After
 
   readonly materialTemplateUtils = materialTemplateUtils
 
+  readonly userAgentData = userAgentData
+
 }
 
 /**
@@ -220,6 +222,62 @@ const materialTemplateUtils = new class MaterialTemplateUtils {
 
   static {
     Object.freeze(this)
+  }
+
+}
+
+
+const userAgentData = new class UserAgentData {
+
+  get mobile() {
+    if (navigator.userAgentData) {
+      if (navigator.userAgentData.platform !== '') {
+        return navigator.userAgentData.mobile
+      }
+    }
+
+    const isMobile = (
+      navigator.userAgent.includes('Mobile')
+      || navigator.userAgent.includes('Android')
+      || navigator.userAgent.includes('iPhone OS')
+      || navigator.userAgent.includes('iPad OS')
+    )
+
+    return isMobile
+  }
+
+  get platform() {
+    if (navigator.userAgentData) {
+      if (navigator.userAgentData.platform !== '') {
+        return navigator.userAgentData.platform
+      }
+    }
+
+    const platform = (() => {
+      if (navigator.userAgent.includes('Windows')) {
+        return 'Windows'
+      }
+
+      if (navigator.userAgent.includes('CrOS')) {
+        return 'Chrome OS'
+      }
+
+      if (navigator.userAgent.includes('Macintosh')) {
+        return 'macOS'
+      }
+
+      if (navigator.userAgent.includes('Android')) {
+        return 'Android'
+      }
+
+      if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
+        return 'iOS'
+      }
+
+      return ''
+    })()
+
+    return platform
   }
 
 }

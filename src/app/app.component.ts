@@ -1,9 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay'
-import { AfterViewInit, ApplicationRef, Component, ElementRef, inject, OnInit, ProviderToken, runInInjectionContext, ViewContainerRef } from '@angular/core'
+import { ApplicationRef, Component, ElementRef, inject, ProviderToken, runInInjectionContext, ViewContainerRef } from '@angular/core'
 import { MatAnchor } from '@angular/material/button'
 import { NavigationEnd, Router } from '@angular/router'
 
+import { BaseComponent } from 'src/app/components/base.component'
 import AuthService from 'src/app/services/auth.service'
+import environment from 'src/environments/environment'
 
 @Component({
   host: {
@@ -14,9 +16,11 @@ import AuthService from 'src/app/services/auth.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent extends BaseComponent {
 
   constructor() {
+    super()
+
     // TODO: Uncomment when Firebase config is set up
     // this.#initAuth()
 
@@ -26,6 +30,40 @@ export class AppComponent implements AfterViewInit, OnInit {
 
     // @ts-ignore
     AppComponent.applicationRef = inject(ApplicationRef)
+
+    this.lifeCycleEvents.onInit.subscribe(() => {
+      this.#fixMatAnchorInteractionOnMobile()
+    })
+
+    this.lifeCycleEvents.afterViewInit.subscribe(() => {
+      this.#removeRouterOutlet()
+
+      this.#modifyBackdropStructureToBeAbleToHaveOwnScrollingForEachModal()
+
+      this.#removeAnnoyingMaterialCSS()
+    })
+
+    const updateUserAgentData = () => {
+      const rootElement = document.documentElement
+
+      Object.assign(rootElement.dataset, {
+        platform: this.userAgentData.platform,
+        mobile: this.userAgentData.mobile,
+      })
+    }
+
+    if (environment.isLocal) {
+      // Update every frame the userAgentData only in local mode
+      requestAnimationFrame(function loop() {
+        requestAnimationFrame(loop)
+  
+        updateUserAgentData()
+      })
+    }
+    else {
+      updateUserAgentData()
+    }
+    
   }
 
   static readonly applicationRef: ApplicationRef
@@ -61,18 +99,6 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   readonly #viewContainerRef = inject(ViewContainerRef)
-
-  ngOnInit() {
-    this.#fixMatAnchorInteractionOnMobile()
-  }
-
-  ngAfterViewInit() {
-    this.#removeRouterOutlet()
-
-    this.#modifyBackdropStructureToBeAbleToHaveOwnScrollingForEachModal()
-
-    this.#removeAnnoyingMaterialCSS()
-  }
 
 
   #initAuth() {
