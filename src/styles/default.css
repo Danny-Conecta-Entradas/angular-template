@@ -159,13 +159,18 @@
     font-weight: 500;
   }
 
-  ::selection {
-    /* background-color: #22ceff88; */
-  }
+  /*
+    If ::selection selector is declared even if it is empty,
+    it applies a transparent background to selection on Firefox.
+  */
 
-  ::selection:window-inactive {
-    /* background-color: #22ceff88; */
-  }
+  /* ::selection {
+    background-color: #22ceff88;
+  } */
+
+  /* ::selection:window-inactive {
+    background-color: #22ceff88;
+  } */
 
 }
 
@@ -199,9 +204,4 @@ body {
     https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
   */
   -webkit-tap-highlight-color: transparent;
-}
-
-
-router-outlet {
-  display: none;
 }

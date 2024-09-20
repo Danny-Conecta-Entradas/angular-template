@@ -29,6 +29,10 @@ a:any-link {
   color: var(--accent-bg);
 }
 
+router-outlet {
+  display: none;
+}
+
 :where(app-root) {
   width: 100%;
   height: 100%;
