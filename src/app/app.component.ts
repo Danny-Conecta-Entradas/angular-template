@@ -172,6 +172,8 @@ export class AppComponent implements AfterViewInit, OnInit {
       // `.mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay`,
       // `.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay`,
       `.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper`,
+      `div.mat-mdc-select-panel`,
+      `.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple)`,
 
       // `.mat-mdc-checkbox-ripple .mat-ripple-element`,
     ]

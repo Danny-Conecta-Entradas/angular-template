@@ -488,6 +488,43 @@
     <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
 </mat-form-field>
 
+<mat-form-field appearance="fill">
+    <mat-icon matPrefix>event</mat-icon>
+
+    <mat-label>Select with Groups</mat-label>
+
+    <mat-select [panelWidth]="null">
+        <mat-optgroup label="Group 1">
+            <mat-option value="1">Option 1</mat-option>
+            <mat-option value="2">Option 2</mat-option>
+            <mat-option value="3">Option 3</mat-option>
+            <mat-option value="4">Longest option of all time 1</mat-option>
+        </mat-optgroup>
+
+        <mat-optgroup label="Group 2">
+            <mat-option value="5">Option 5</mat-option>
+            <mat-option value="6">Option 6</mat-option>
+            <mat-option value="7">Option 7</mat-option>
+            <mat-option value="8">Longest option of all time 2</mat-option>
+        </mat-optgroup>
+    </mat-select>
+    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+    <mat-icon matPrefix>event</mat-icon>
+
+    <mat-label>MultiSelect</mat-label>
+
+    <mat-select [multiple]="true">
+        <mat-option value="1">Option 1</mat-option>
+        <mat-option value="2">Option 2</mat-option>
+        <mat-option value="3">Option 3</mat-option>
+        <mat-option value="4">Longest option of all time</mat-option>
+    </mat-select>
+    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+</mat-form-field>
+
 
 <file-picker />
 

@@ -165,7 +165,7 @@
 
 :where([data-apply-material-overrides]) {
 
-  & .mat-mdc-select{
+  & .mat-mdc-select {
     font-size: unset;
     color: unset;
     line-height: unset;
@@ -178,4 +178,100 @@
       }
     }
   }
+
+}
+
+
+:where(app-root[data-apply-material-overrides] ~ .cdk-overlay-container) {
+
+  & .mat-mdc-select-panel {
+    width: 100%;
+
+    padding-block: 0.5em;
+
+    border-radius: 0.25em;
+
+    background-color: #fff;
+
+    overflow: auto;
+
+    & :is(
+      & > *,
+      & > .mat-mdc-optgroup > *,
+    ) {
+
+      &.mat-mdc-option {
+        border-left: solid 2px transparent;
+  
+        color: #000;
+  
+        &.mat-mdc-option-active {
+          border-color: currentColor;
+  
+          background-color: rgba(0 0 0 / 15%);
+
+          @media (hover: hover) {
+            &:hover {
+              background-color: rgba(0 0 0 / 20%);
+            }
+          }
+        }
+  
+        @media (hover: hover) {
+          &:hover {
+            background-color: rgba(0 0 0 / 15%);
+          }
+        }
+  
+        &.mdc-list-item--selected {
+          background-color: rgb(85 153 231 / 25%);
+          color: #3f51b5;
+  
+          &.mat-mdc-option-active {
+            background-color: rgb(32 44 110 / 30%);
+
+            @media (hover: hover) {
+              &:hover {
+                background-color: rgb(32 44 110 / 35%);
+              }
+            }
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              background-color: rgb(32 44 110 / 30%);
+            }
+          }
+        }
+  
+        & > .mdc-list-item__primary-text {
+          color: inherit;
+        }
+  
+        & > .mat-pseudo-checkbox {
+
+          &.mat-pseudo-checkbox-minimal {
+            &::after {
+              color: inherit;
+            }
+          }
+
+          &.mat-pseudo-checkbox-full {
+            background: unset;
+
+            &.mat-pseudo-checkbox-checked {
+              background-color: currentColor;
+            }
+
+            color: inherit;
+
+            &::after {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
 }

@@ -51,6 +51,11 @@ const routes: Routes = [
     },
     component: MultiRoutePage,
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'template-reference/main',
+  },
 
 
   /* App Routes */

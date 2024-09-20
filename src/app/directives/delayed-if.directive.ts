@@ -1,6 +1,9 @@
-import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core'
+import { Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core'
 
 // https://v16.angular.io/guide/structural-directives
+
+// ngIf implementation
+// https://github.com/angular/angular/blob/main/packages/common/src/directives/ng_if.ts
 
 /**
   Custom structural directive similar to `*ngIf` to be able to add a delay
@@ -20,7 +23,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angula
   selector: '[delayedIf]',
   exportAs: 'delayedIf',
 })
-export class DelayedIfDirective {
+export class DelayedIfDirective<T = unknown> {
 
   constructor() {}
 
@@ -28,8 +31,10 @@ export class DelayedIfDirective {
 
   readonly #viewContainerRef = inject(ViewContainerRef)
 
+  #embeddedViewRef!: EmbeddedViewRef<any>
+
   @Input()
-  set delayedIf(condition: boolean) {
+  set delayedIf(condition: T) {
     if (condition) {
       window.clearTimeout(this.#exitDelayTimeoutId)
 
@@ -40,13 +45,13 @@ export class DelayedIfDirective {
       if (typeof this.entryTimeout === 'number') {
         this.#entryDelayTimeoutId = window.setTimeout(
           () => {
-            this.#viewContainerRef.createEmbeddedView(this.#templateRef)
+            this.#embeddedViewRef = this.#viewContainerRef.createEmbeddedView(this.#templateRef)
           },
           this.entryTimeout,
         )
       }
       else {
-        this.#viewContainerRef.createEmbeddedView(this.#templateRef)
+        this.#embeddedViewRef = this.#viewContainerRef.createEmbeddedView(this.#templateRef)
       }
 
       return
@@ -55,6 +60,26 @@ export class DelayedIfDirective {
     window.clearTimeout(this.#entryDelayTimeoutId)
 
     if (typeof this.exitTimeout === 'number') {
+      if (this.cloneContentsBeforeExit) {
+        const containerElement = this.#embeddedViewRef.rootNodes[0] as HTMLElement
+
+        const children = containerElement.cloneNode(true).childNodes
+
+        containerElement.replaceChildren(...children)
+
+        const nodeIterator = document.createNodeIterator(containerElement, NodeFilter.SHOW_ELEMENT)
+
+        let element: HTMLElement
+
+        // Skip root node
+        nodeIterator.nextNode()
+
+        while (element = nodeIterator.nextNode() as HTMLElement) {
+          element.style.setProperty('animation', 'none', 'important')
+          element.style.setProperty('transition', 'none', 'important')
+        }
+      }
+
       this.#exitDelayTimeoutId = window.setTimeout(
         () => {
           this.#viewContainerRef.clear()
@@ -76,5 +101,8 @@ export class DelayedIfDirective {
   exitTimeout: null | number = null
 
   #exitDelayTimeoutId = -1
+
+  @Input('delayedIfCloneContentsBeforeExit')
+  cloneContentsBeforeExit: boolean = false
 
 }
