@@ -143,6 +143,7 @@
   }
 
   & [mat-mini-fab] {
+
     & > .mat-icon {
       font-size: 1.3em;
       line-height: 1.1;
@@ -175,7 +176,7 @@
 
   & > .cdk-overlay-backdrop {
 
-    /* <mat-menu> */
+    /* <mat-menu> backdrop */
     &.cdk-overlay-backdrop-showing {
     /* &.cdk-overlay-backdrop-showing:has(+ div > :first-child > .mat-mdc-menu-panel) { */
       opacity: 1;
@@ -187,6 +188,7 @@
 
     & > .cdk-overlay-pane {
 
+      /* <mat-menu> */
       & > .mat-mdc-menu-panel {
         max-width: none;
 
@@ -203,6 +205,30 @@
             padding-inline: 0.9em;
 
             cursor: inherit;
+
+            background-color: transparent;
+
+            &.cdk-focused {
+              background-color: rgba(0 0 0 / 10%);
+            }
+
+            &.cdk-keyboard-focused {
+
+            }
+
+            @media (hover: hover) {
+              &:hover {
+                background-color: rgba(0 0 0 / 10%);
+                
+                &.cdk-focused {
+                  background-color: rgba(0 0 0 / 15%);
+                }
+              }
+            }
+
+            &:active {
+              background-color: rgba(0 0 0 / 20%);
+            }
       
             & > mat-icon {
               margin: 0;

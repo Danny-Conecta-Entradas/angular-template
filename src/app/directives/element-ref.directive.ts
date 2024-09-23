@@ -3,7 +3,7 @@ import { Directive, ElementRef, inject } from '@angular/core';
 
 @Directive({
   standalone: true,
-  selector: ':not()',
+  selector: '[element-ref]',
   exportAs: 'elementRef',
 })
 export class ElementRefDirective {

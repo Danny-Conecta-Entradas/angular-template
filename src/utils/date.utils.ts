@@ -1,9 +1,18 @@
+function isInvalidDate(date: Date) {
+  return Number.isNaN(date.getTime())
+}
+
+
 export function formatDateAsFullTimePlusFullDate(date: Date | string | undefined | null) {
   if (date == null) {
     return null
   }
 
   const dateResolved = typeof date === 'string' ? new Date(date) : date
+
+  if (isInvalidDate(dateResolved)) {
+    return null
+  }
 
   const year = String(dateResolved.getFullYear()).padStart(4, '0')
   const month = String(dateResolved.getMonth() + 1).padStart(2, '0')
@@ -18,12 +27,16 @@ export function formatDateAsFullTimePlusFullDate(date: Date | string | undefined
   return result
 }
 
-export function formatDateAsFullDatePlusFullTime(date: Date | string | undefined | null) {
+export function formatDateAsFullDatePlusFullTime(date: Date | number | string | undefined | null) {
   if (date == null) {
     return null
   }
 
-  const dateResolved = typeof date === 'string' ? new Date(date) : date
+  const dateResolved = (typeof date === 'string' || typeof date === 'number') ? new Date(date) : date
+
+  if (isInvalidDate(dateResolved)) {
+    return null
+  }
 
   const year = String(dateResolved.getFullYear()).padStart(4, '0')
   const month = String(dateResolved.getMonth() + 1).padStart(2, '0')
@@ -45,6 +58,10 @@ export function formatDateAsFullDate(date: Date | string | undefined | null) {
   }
 
   const dateResolved = typeof date === 'string' ? new Date(date) : date
+
+  if (isInvalidDate(dateResolved)) {
+    return null
+  }
 
   const year = String(dateResolved.getFullYear()).padStart(4, '0')
   const month = String(dateResolved.getMonth() + 1).padStart(2, '0')

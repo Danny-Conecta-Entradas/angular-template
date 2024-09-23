@@ -106,6 +106,16 @@ const templateUtils = new class TemplateUtils {
     Object.setPrototypeOf(this.prototype, null)
   }
 
+  isScrollEnd(element: HTMLElement) {
+    const scrollHeight = element.scrollHeight
+    const scrollPosition = element.offsetHeight + element.scrollTop
+
+    return (
+      scrollHeight - (scrollPosition) < 1
+      && scrollHeight - (scrollPosition) > -1
+    )
+  }
+
   preventLinkNavigationFromInnerElement(event: MouseEvent) {
     event.preventDefault()
     event.stopPropagation()
