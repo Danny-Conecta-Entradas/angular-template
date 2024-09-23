@@ -34,15 +34,21 @@ export default class LoaderService {
       this.#loaderResolver = createPromiseResolver()
       LoaderService.#instancesWithLoadingState.add(this)
 
+      this.#runListeners()
+
       if (LoaderService.#instancesWithLoadingState.size === 1) {
         LoaderService.#globalLoaderResolver = createPromiseResolver()
+        this.#runGlobalListeners()
       }
     }
     else {
-      this.#loaderResolver.resolve()
       LoaderService.#instancesWithLoadingState.delete(this)
+      this.#runListeners()
+
+      this.#loaderResolver.resolve()
 
       if (LoaderService.#instancesWithLoadingState.size === 0) {
+        this.#runGlobalListeners()
         LoaderService.#globalLoaderResolver.resolve()
       }
     }
@@ -83,6 +89,133 @@ export default class LoaderService {
     }
 
     await LoaderService.#globalLoaderResolver.promise
+  }
+
+  // Listeners
+
+  readonly #listenersCollection = new Set<LoaderService.LoaderListener>()
+
+  addListener<T extends LoaderService.LoaderListenerOptions>(listener: LoaderService.LoaderListener, options?: T)
+  : T extends LoaderService.LoaderListenerOptions
+      ? T['signal'] extends AbortSignal
+        ? void
+        : LoaderService.LoaderRemoveListenerFunc
+      : LoaderService.LoaderRemoveListenerFunc
+  {
+    // @ts-ignore
+    options ??= {}
+
+    this.#listenersCollection.add(listener)
+
+    // @ts-ignore
+    if (options.signal != null) {
+      // @ts-ignore
+      options.signal.addEventListener('abort', event => {
+        if (!event.isTrusted) {
+          return
+        }
+
+        this.removeListener(listener)
+      })
+      // @ts-ignore
+      return
+    }
+
+    // @ts-ignore
+    return () => {
+      this.removeListener(listener)
+    }
+  }
+
+  removeListener(listener: LoaderService.LoaderListener) {
+    this.#listenersCollection.delete(listener)
+  }
+
+  #runListeners() {
+    for (const listener of this.#listenersCollection) {
+      try {
+        listener(this.#loadingState)
+      }
+      catch (reason) {
+        console.error(reason)
+      }
+    }
+  }
+
+
+  // Global Listeners
+
+  readonly #globalListenersCollection = new Set<LoaderService.GlobalLoaderListener>()
+
+  addGlobalListener<T extends LoaderService.GlobalLoaderListenerOptions>(listener: LoaderService.GlobalLoaderListener, options?: T)
+  : T extends LoaderService.GlobalLoaderListenerOptions
+      ? T['signal'] extends AbortSignal
+        ? void
+        : LoaderService.GlobalLoaderRemoveListenerFunc
+      : LoaderService.GlobalLoaderRemoveListenerFunc
+  {
+    // @ts-ignore
+    options ??= {}
+
+    this.#globalListenersCollection.add(listener)
+
+    // @ts-ignore
+    if (options.signal != null) {
+      // @ts-ignore
+      options.signal.addEventListener('abort', event => {
+        if (!event.isTrusted) {
+          return
+        }
+
+        this.removeGlobalListener(listener)
+      })
+      // @ts-ignore
+      return
+    }
+
+    // @ts-ignore
+    return () => {
+      this.removeGlobalListener(listener)
+    }
+  }
+
+  removeGlobalListener(listener: LoaderService.GlobalLoaderListener) {
+    this.#globalListenersCollection.delete(listener)
+  }
+
+  #runGlobalListeners() {
+    for (const listener of this.#globalListenersCollection) {
+      try {
+        listener(this.hasGlobalLoadingState())
+      }
+      catch (reason) {
+        console.error(reason)
+      }
+    }
+  }
+
+}
+
+module LoaderService {
+
+  export type LoaderListener = (state: boolean) => void
+
+  export type LoaderRemoveListenerFunc = () => void
+
+  export type LoaderListenerOptions = {
+
+    signal?: AbortSignal
+
+  }
+
+  export type GlobalLoaderListener = (state: boolean) => void
+
+  export type GlobalLoaderRemoveListenerFunc = () => void
+
+  export type GlobalLoaderListenerOptions = {
+
+    signal?: AbortSignal
+
   }
 
 }
