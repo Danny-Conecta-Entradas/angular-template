@@ -108,11 +108,11 @@ const templateUtils = new class TemplateUtils {
 
   isScrollEnd(element: HTMLElement) {
     const scrollHeight = element.scrollHeight
-    const scrollPosition = element.offsetHeight + element.scrollTop
+    const scrollBottom = element.offsetHeight + element.scrollTop
 
     return (
-      scrollHeight - (scrollPosition) < 1
-      && scrollHeight - (scrollPosition) > -1
+      scrollHeight - (scrollBottom) < 1
+      && scrollHeight - (scrollBottom) > -1
     )
   }
 
