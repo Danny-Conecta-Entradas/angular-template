@@ -35,6 +35,11 @@
       }
     }
 
+    & > .mat-mdc-button-touch-target {
+      width: 100%;
+      height: 100%;
+    }
+
     & > :is(
       .mat-mdc-button-touch-target,
       .mat-mdc-focus-indicator,
@@ -43,6 +48,7 @@
     }
 
     & > .mat-mdc-button-persistent-ripple[class] {
+      border-radius: inherit;
 
       &::before {
         opacity: 0;
