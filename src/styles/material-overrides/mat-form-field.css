@@ -21,6 +21,19 @@
       --background-color: var(--autofill-background-color);
     }
 
+    & > .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+      position: relative;
+
+      &::before {
+        content: none;
+      }
+
+      /* Avoid <mat-error> parent container affecting layout to properly handle separation among <mat-form-field> */
+      & > .mat-mdc-form-field-error-wrapper {
+        position: absolute;
+      }
+    }
+
     &.mat-form-field-appearance-fill {}
 
     &.mat-form-field-disabled {
