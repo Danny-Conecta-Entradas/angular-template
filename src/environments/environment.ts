@@ -3,6 +3,10 @@ import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getStorage } from 'firebase/storage'
 
+import dev_environment from './environment.development'
+import test_environment from './environment.test'
+import production_environment from './environment.production'
+
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -41,3 +45,12 @@ const environment = {
 } as const
 
 export default environment
+
+/*
+  Uncomment depending on the environment of interest to check.
+  (Must comment the firebaseApp and firebaseStorage variables to avoid conflicts)
+*/
+
+// export default dev_environment
+// export default test_environment
+// export default production_environment
