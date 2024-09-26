@@ -21,7 +21,7 @@
       --background-color: var(--autofill-background-color);
     }
 
-    &[appearance="fill"] {}
+    &.mat-form-field-appearance-fill {}
 
     &.mat-form-field-disabled {
       cursor: not-allowed;
@@ -29,6 +29,12 @@
 
     & > .mat-mdc-text-field-wrapper {
       display: flex;
+
+      padding-inline: 1em;
+
+      &:is(.mat-mdc-form-field.mat-mdc-form-field-has-icon-prefix > &) {
+        padding-inline: 0
+      }
 
       --mdc-outlined-text-field-focus-outline-width: 0.125em;
       --mdc-outlined-text-field-container-shape: 0.25em;
@@ -88,12 +94,18 @@
               top: 1.8em;
               /* left: 0.25em; */
 
-              /* transform: translateY(-0.6em) translateX(78%) !important; */
-              /* transform: translateY(calc(50% - 1.2em)) translateX(2em) !important; */
-              transform: translateY(calc(50% - 1.2em)) translateX(78%) !important;
-
               &.mdc-floating-label--float-above {
                 transform: translateY(-2.2em) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75)) !important;
+              }
+
+              &:is(.mat-mdc-form-field.mat-mdc-form-field-has-icon-prefix > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mdc-notched-outline > .mdc-notched-outline__notch > &) {
+                /* transform: translateY(-0.6em) translateX(78%) !important; */
+                /* transform: translateY(calc(50% - 1.2em)) translateX(2em) !important; */
+                transform: translateY(calc(50% - 1.2em)) translateX(78%) !important;
+
+                &.mdc-floating-label--float-above {
+                  transform: translateY(-2.2em) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75)) !important;
+                }
               }
 
               font-size: 1em;
@@ -111,7 +123,7 @@
           & > mat-icon {
             padding: 0.5em;
 
-            &:is(.mat-mdc-form-field.mat-form-field-disabled > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mat-mdc-form-field-icon-prefix > &) {
+            &:is(.mat-mdc-form-field.mat-form-field-disabled > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mat-mdc-form-field-icon-prefix > &) {
               pointer-events: none;
               color: var(--mdc-outlined-text-field-disabled-outline-color);
             }
@@ -124,7 +136,7 @@
 
           padding-block: 1em;
 
-          &:is(:not([appearance="outline"]) > :not(.mdc-text-field--no-label) > * > &) {
+          &:is(:not(.mat-form-field-appearance-outline) > :not(.mdc-text-field--no-label) > * > &) {
             padding-top: 1.5em;
             padding-bottom: 0.5em;
           }
