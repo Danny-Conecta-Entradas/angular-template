@@ -1,11 +1,9 @@
 import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
-import AuthService from 'src/services/auth.service'
-
-const getAuthService = () => inject(AuthService)
+import AuthService from 'src/app/services/auth.service'
 
 export const publicGuard: CanActivateFn = async () => {
-  const authService = getAuthService()
+  const authService = inject(AuthService)
   const router = inject(Router)
 
   await authService.auth.authStateReady()
@@ -22,7 +20,7 @@ export const publicGuard: CanActivateFn = async () => {
 }
 
 export const authGuard: CanActivateFn = async () => {
-  const authService = getAuthService()
+  const authService = inject(AuthService)
   const router = inject(Router)
 
   await authService.auth.authStateReady()
