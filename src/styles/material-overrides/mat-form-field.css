@@ -104,7 +104,7 @@
             & > .mdc-floating-label {
               pointer-events: none;
 
-              top: 1.8em;
+              top: 1.75em;
               /* left: 0.25em; */
 
               &.mdc-floating-label--float-above {
@@ -112,9 +112,7 @@
               }
 
               &:is(.mat-mdc-form-field.mat-mdc-form-field-has-icon-prefix > .mat-mdc-text-field-wrapper > .mat-mdc-form-field-flex > .mdc-notched-outline > .mdc-notched-outline__notch > &) {
-                /* transform: translateY(-0.6em) translateX(78%) !important; */
-                /* transform: translateY(calc(50% - 1.2em)) translateX(2em) !important; */
-                transform: translateY(calc(50% - 1.2em)) translateX(78%) !important;
+                transform: translateY(calc(50% - 1.2em)) translateX(2em) !important;
 
                 &.mdc-floating-label--float-above {
                   transform: translateY(-2.2em) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75)) !important;
