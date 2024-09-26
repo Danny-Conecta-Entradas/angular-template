@@ -1,4 +1,4 @@
-import { inject, NgModule } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
+
+// Modules
+import { MaterialModule } from 'src/app/modules/material.module'
 
 // Components
 import { BackButtonComponent } from 'src/app/components/back-button/back-button.component'
@@ -18,11 +21,10 @@ import { ExactActiveRouterLinkDirective } from 'src/app/directives/exact-active-
 import { InputDragoverFocusDirective } from 'src/app/directives/input-dragover-focus.directive'
 import { InputAutofillDirective } from 'src/app/directives/input-autofill.directive'
 import { TypeButtonDirective } from 'src/app/directives/type-button.directive'
+import { ElementRefDirective } from 'src/app/directives/element-ref.directive'
 
 // Pages
 import { TemplateReferenceMainPage } from './pages/template-reference/main/template-reference-main.page'
-import { MaterialModule } from 'src/app/modules/material.module'
-import { ElementRefDirective } from 'src/app/directives/element-ref.directive'
 import MultiRoutePage from 'src/app/pages/template-reference/multi-route-page/multi-route.page'
 
 
